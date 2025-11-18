@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import ThanksModal from './ThanksModal';
 
-export default function SalesRepresentativeForm({ isOpen = false, onClose }) {
+export default function InstallerForm({ isOpen = false, onClose }) {
     const [step, setStep] = useState(1);
     const [showThankYou, setShowThankYou] = useState(false);
 

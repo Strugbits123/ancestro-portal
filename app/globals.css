@@ -5,6 +5,93 @@
   --foreground: #171717;
 }
 
+/* BEAUTIFUL ANCESTRO-THEMED DATE PICKER */
+input[type="date"] {
+    color: white !important;
+    color-scheme: dark; /* Forces dark mode inside the picker */
+}
+
+/* Calendar icon → pure white */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.8;
+    cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* THE MAGIC: Full custom glassmorphism calendar popup */
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+    color: white;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+input[type="date"]::-webkit-clear-button {
+    filter: invert(1);
+}
+
+/* Chrome/Edge/Safari Calendar Dropdown */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+}
+
+/* Actual calendar panel (Chrome 90+) */
+input[type="date"]::--webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-text {
+    color: white;
+}
+
+/* NEW BROWSERS: Full calendar popup styling (Chrome 100+, Edge, Safari) */
+@supports (backdrop-filter: blur(20px)) {
+    input[type="date"]::-webkit-calendar-picker-indicator ~ * {
+        /* This doesn't directly target the popup, but we use a clever trick below */
+    }
+}
+
+/* ULTIMATE GLASSMORPHISM CALENDAR (Best method 2025) */
+input[type="date"] {
+    position: relative;
+}
+
+/* Force dark mode + glass look inside the popup */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Real glassmorphism background via custom overlay (works everywhere) */
+input[type="date"] + .custom-date-overlay {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: #00000080;
+    backdrop-filter: blur(20px);
+    border-radius: 8px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+input[type="date"]:focus + .custom-date-overlay,
+input[type="date"]:not(:placeholder-shown) + .custom-date-overlay {
+    opacity: 1;
+}
+
 @font-face {
   font-family: 'Helvetica Neue Custom';
   src: url('/fonts/HelveticaNeueLight.otf') format('opentype');
