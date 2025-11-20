@@ -5,7 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 // English translations
 // English translations
 const enTranslations = {
-    nav: {
+  nav: {
     energy: "Ancestro Energy",
     capital: "Ancestro Capital",
     charge: "Ancestro Charge",
@@ -105,12 +105,129 @@ const enTranslations = {
   footer: {
     address: "Address: 123 Green Avenue, Ancestro Business Park, Suite 405, New York, NY 10001, United States",
     contact: "Contact us: +1 (555) 123-4567  |  +44 20 7946 0958"
+  },
+
+
+  // Form----------------------------------------
+
+  // English translations
+  common: {
+    yes: "YES",
+    no: "NO",
+    back: "Back",
+    next: "Next",
+    upload: "Upload",
+    noFileChosen: "No file chosen",
+    required: "This field is required",
+    typeHere: "Type here..."
+  },
+  forms: {
+    salesRepresentative: {
+      title: "ANCESTRO ENERGY – SALES REPRESENTATIVE APPLICATION",
+      subtitle: "Join the movement powering a cleaner, freer Latin America.",
+      hashtag: "#LosAncestros",
+      submitButton: "Submit Application",
+
+      steps: {
+        step1: "Personal Information",
+        step2: "Background & Education",
+        step3: "Skills & Communication",
+        step4: "Role Expectations & Execution",
+        step5: "Vision & Purpose",
+        step6: "Personal Alignment & Self-Awareness",
+        step7: "Motivation & Purpose",
+        step8: "Personality & Communication",
+        step9: "Growth & Culture Fit",
+        step10: "Final Steps"
+      },
+
+      sections: {
+        lifestyleMindset: "Lifestyle & Mindset",
+        motivationPurpose: "Motivation & Purpose",
+        personalityComm: "Personality & Communication",
+        growthCulture: "Growth & Culture Fit"
+      },
+
+      fields: {
+        fullName: "Full Name",
+        location: "Country and City",
+        whatsapp: "WhatsApp Number",
+        email: "Email Address",
+        dob: "Date of Birth",
+        languages: "Languages Spoken",
+        socialProfile: "LinkedIn or Instagram Profile",
+
+        education: "What is your educational background?",
+        salesExperience: "Do you have prior experience in sales? If yes, describe the industries and products you’ve worked with.",
+        renewableExperience: "Have you ever sold renewable energy or financial services before?",
+        bestSalesStory: "Describe your most successful sales experience and what made it successful.",
+        currentWorkStatus: "Are you currently self-employed, working in sales, or transitioning from another field?",
+
+        buildTrust: "How do you build trust with clients during your first interaction?",
+        commStyle: "Describe your communication style in three words.",
+        motivationRenewable: "What motivates you most about selling renewable energy solutions?",
+        cameraComfort: "How comfortable are you speaking on camera or conducting video calls? (1–10)",
+        crmComfort: "Rate your comfort level using CRM systems and digital tools. (1–10)",
+        strongMarkets: "What languages or markets are you most confident selling in?",
+
+        remoteWork: "Are you comfortable working remotely with a results-based structure?",
+        inPersonDays: "Are you able to attend two in-person collaboration days per week?",
+        handleObjections: "How do you handle objections or rejection in a sales conversation?",
+        learnProducts: "What’s your process for learning and mastering new products quickly?",
+        lifeChangingSale: "Describe a time you helped someone make a decision that truly improved their life.",
+        followUpStyle: "What’s your approach to follow-ups and closing deals?",
+
+        whyAncestro: "Why do you want to represent Ancestro Energy?",
+        freedomMeaning: "What does “freedom through energy” mean to you personally?",
+        latamFuture: "How do you think renewable energy will transform Latin America in the next 5 years?",
+        resonance: "Ancestro combines spirituality, business, and philanthropy — which of these resonates most with you and why?",
+        incomeGoals: "What are your personal income and lifestyle goals for the next 12 months?",
+        successVision: "What will success look like for you one year from now as part of this movement?",
+
+        discipline: "On a scale of 1–10, how would you rate your self-discipline?",
+        dailyHabits: "What daily habits keep you focused or grounded?",
+        habitToImprove: "What’s one habit you’d like to improve this year?",
+        handleFailure: "How do you handle rejection or failure?",
+        meditation: "Do you meditate or have a mindfulness practice? If so, how often?",
+        selfTalk: "How would you describe your self-talk when you face challenges?",
+
+        currentBlock: "What is currently holding you back from your highest potential?",
+        freedomMoment: "Describe a moment when you felt frustrated by limits or systems in society...",
+        workThatEnergizes: "What kind of work makes you feel most alive?",
+        whyMissionDriven: "Why do you want to be part of a mission-driven, health-conscious company like Ancestro?",
+
+        energyType: "How would you describe your natural energy: introvert, extrovert, or ambivert?",
+        publicSpeaking: "How comfortable are you speaking to a group or presenting on stage? (1–10)",
+        learningWillingness: "How comfortable are you learning new material weekly or receiving coaching?",
+        structurePreference: "Do you prefer structured guidance or freedom to self-direct?",
+        bestEnvironment: "What type of environment helps you perform at your best?",
+
+        spiritualTeam: "Would you find it empowering to work within a team that values spirituality, health, and continual self-improvement?",
+        physicalWellbeing: "How do you maintain your physical wellbeing and energy levels?",
+        personalGrowth: "What areas of personal growth are you actively working on right now?",
+        fitnessEncouragement: "If the company encouraged fitness and wellbeing goals as part of professional development, how would that feel to you?",
+        fitnessChallenge: "If you were selected for this role only after demonstrating a commitment to improve your physical fitness...",
+
+        photoOptional: "Upload a recent photo that represents who you are (optional)",
+        uploadCV: "Upload your CV or resume.",
+        uploadVideo: "Upload a 1-minute video introducing yourself and why you want to join Ancestro. (Optional)",
+        fullTimeAvailability: "CONFIRM FULL-TIME AVAILABILITY.",
+        trainingCommitment: "Confirm willingness to participate in initial training and evaluation phase."
+      },
+
+      thanks: {
+        text1: "This is more than a sales role — it’s an initiation into leadership.",
+        text2: "Every conversation you have spreads the light of clean energy, freedom, and abundance across Latin America."
+      }
+    }
   }
+
+
 };
 
 // Spanish translations
 const esTranslations = {
-    nav: {
+  nav: {
     energy: "Ancestro Energía",
     capital: "Ancestro Capital",
     charge: "Ancestro Charge",
@@ -210,25 +327,139 @@ const esTranslations = {
   footer: {
     address: "Dirección: 123 Green Avenue, Ancestro Business Park, Suite 405, New York, NY 10001, Estados Unidos",
     contact: "Contáctanos: +1 (555) 123-4567  |  +44 20 7946 0958"
+  },
+
+  // -----Form----------------------
+  common: {
+    yes: "SÍ",
+    no: "NO",
+    back: "Anterior",
+    next: "Siguiente",
+    upload: "Subir",
+    noFileChosen: "Ningún archivo seleccionado",
+    required: "Este campo es obligatorio",
+    typeHere: "Escribe aquí..."
+  },
+  forms: {
+    salesRepresentative: {
+      title: "ANCESTRO ENERGY – POSTULACIÓN REPRESENTANTE DE VENTAS",
+      subtitle: "Únete al movimiento que lleva energía limpia y libertad a toda América Latina.",
+      hashtag: "#LosAncestros",
+      submitButton: "Enviar Postulación",
+
+      steps: {
+        step1: "Información Personal",
+        step2: "Formación y Experiencia",
+        step3: "Habilidades y Comunicación",
+        step4: "Expectativas del Rol y Ejecución",
+        step5: "Visión y Propósito",
+        step6: "Alineación Personal y Autoconocimiento",
+        step7: "Motivación y Propósito",
+        step8: "Personalidad y Comunicación",
+        step9: "Crecimiento y Ajuste Cultural",
+        step10: "Pasos Finales"
+      },
+
+      sections: {
+        lifestyleMindset: "Estilo de Vida y Mentalidad",
+        motivationPurpose: "Motivación y Propósito",
+        personalityComm: "Personalidad y Comunicación",
+        growthCulture: "Crecimiento y Ajuste Cultural"
+      },
+
+      fields: {
+        fullName: "Nombre Completo",
+        location: "País y Ciudad",
+        whatsapp: "Número de WhatsApp",
+        email: "Correo Electrónico",
+        dob: "Fecha de Nacimiento",
+        languages: "Idiomas que Hablas",
+        socialProfile: "Perfil de LinkedIn o Instagram",
+
+        education: "¿Cuál es tu formación académica?",
+        salesExperience: "¿Tienes experiencia previa en ventas? Si sí, describe los sectores y productos con los que has trabajado.",
+        renewableExperience: "¿Alguna vez has vendido energía renovable o servicios financieros?",
+        bestSalesStory: "Describe tu experiencia de venta más exitosa y qué la hizo exitosa.",
+        currentWorkStatus: "¿Estás trabajando por cuenta propia, en ventas actualmente o en transición desde otro campo?",
+
+        buildTrust: "¿Cómo generas confianza con los clientes en la primera interacción?",
+        commStyle: "Describe tu estilo de comunicación en tres palabras.",
+        motivationRenewable: "¿Qué te motiva más de vender soluciones de energía renovable?",
+        cameraComfort: "¿Qué tan cómodo te sientes hablando frente a cámara o en videollamadas? (1–10)",
+        crmComfort: "Califica tu nivel de comodidad usando sistemas CRM y herramientas digitales. (1–10)",
+        strongMarkets: "¿En qué idiomas o mercados te sientes más fuerte vendiendo?",
+
+        remoteWork: "¿Estás cómodo trabajando de forma remota con estructura basada en resultados?",
+        inPersonDays: "¿Puedes asistir a dos días de colaboración presencial por semana?",
+        handleObjections: "¿Cómo manejas las objeciones o el rechazo en una conversación de ventas?",
+        learnProducts: "¿Cuál es tu proceso para aprender y dominar rápidamente nuevos productos?",
+        lifeChangingSale: "Describe un momento en que ayudaste a alguien a tomar una decisión que realmente mejoró su vida.",
+        followUpStyle: "¿Cuál es tu enfoque para seguimientos y cierre de ventas?",
+
+        whyAncestro: "¿Por qué quieres representar a Ancestro Energy?",
+        freedomMeaning: "¿Qué significa para ti personalmente “libertad a través de la energía”?",
+        latamFuture: "¿Cómo crees que la energía renovable transformará América Latina en los próximos 5 años?",
+        resonance: "Ancestro combina espiritualidad, negocio y filantropía — ¿cuál de estos te resuena más y por qué?",
+        incomeGoals: "¿Cuáles son tus metas personales de ingresos y estilo de vida para los próximos 12 meses?",
+        successVision: "¿Cómo visualizas el éxito dentro de un año formando parte de este movimiento?",
+
+        discipline: "En una escala del 1 al 10, ¿cómo calificarías tu autodisciplina?",
+        dailyHabits: "¿Qué hábitos diarios te mantienen enfocado o en paz?",
+        habitToImprove: "¿Qué hábito te gustaría mejorar este año?",
+        handleFailure: "¿Cómo manejas el rechazo o el fracaso?",
+        meditation: "¿Meditas o tienes práctica de mindfulness? ¿Con qué frecuencia?",
+        selfTalk: "¿Cómo es tu diálogo interno cuando enfrentas desafíos?",
+
+        currentBlock: "¿Qué te está frenando actualmente de alcanzar tu máximo potencial?",
+        freedomMoment: "Describe un momento en que te sentiste frustrado por límites o sistemas de la sociedad...",
+        workThatEnergizes: "¿Qué tipo de trabajo te hace sentir más vivo?",
+        whyMissionDriven: "¿Por qué quieres formar parte de una empresa con propósito, consciente de la salud como Ancestro?",
+
+        energyType: "¿Cómo describirías tu energía natural: introvertido, extrovertido o ambivertido?",
+        publicSpeaking: "¿Qué tan cómodo te sientes hablando en público o presentando en escenario? (1–10)",
+        learningWillingness: "¿Qué tan dispuesto estás a aprender material nuevo semanalmente y recibir coaching?",
+        structurePreference: "¿Prefieres guía estructurada o libertad para autodirigirte?",
+        bestEnvironment: "¿Qué tipo de entorno te permite rendir al máximo?",
+
+        spiritualTeam: "¿Te sentirías empoderado trabajando en un equipo que valora espiritualidad, salud y mejora continua?",
+        physicalWellbeing: "¿Cómo mantienes tu bienestar y niveles de energía física?",
+        personalGrowth: "¿En qué áreas de crecimiento personal estás trabajando activamente ahora?",
+        fitnessEncouragement: "Si la empresa promoviera metas de fitness y bienestar como parte del desarrollo profesional, ¿cómo te sentirías?",
+        fitnessChallenge: "Si fueras seleccionado solo después de demostrar compromiso con mejorar tu condición física...",
+
+        photoOptional: "Sube una foto reciente que represente quién eres (opcional)",
+        uploadCV: "Sube tu CV o hoja de vida.",
+        uploadVideo: "Sube un video de 1 minuto presentándote y explicando por qué quieres unirte a Ancestro. (Opcional)",
+        fullTimeAvailability: "CONFIRMAR DISPONIBILIDAD FULL-TIME.",
+        trainingCommitment: "Confirmar disposición a participar en la fase inicial de formación y evaluación."
+      },
+
+      thanks: {
+        text1: "Esto es más que un puesto de ventas — es una iniciación al liderazgo.",
+        text2: "Cada conversación que tengas esparce la luz de energía limpia, libertad y abundancia por toda América Latina."
+      }
+    }
   }
+
+
 };
 // i18n initialization
 i18n
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-        resources: {
-            en: { translation: enTranslations },
-            es: { translation: esTranslations },
-        },
-        fallbackLng: "en",
-        interpolation: {
-            escapeValue: false,
-        },
-        detection: {
-            order: ["localStorage", "navigator"],
-            caches: ["localStorage"],
-        },
-    });
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: { translation: enTranslations },
+      es: { translation: esTranslations },
+    },
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false,
+    },
+    detection: {
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"],
+    },
+  });
 
 export default i18n;

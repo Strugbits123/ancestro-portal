@@ -1,10 +1,10 @@
-// components/Form/SalesRepresentativeForm.jsx
+// components/Form/InstallerForm.jsx
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import ThanksModal from './ThanksModal';
 
 export default function InstallerForm({ isOpen = false, onClose }) {
@@ -16,83 +16,97 @@ export default function InstallerForm({ isOpen = false, onClose }) {
         handleSubmit,
         formState: { errors },
         trigger,
-        watch,
+        control,
         clearErrors,
         setValue,
         reset,
+        watch,
     } = useForm({
         mode: 'onChange',
         reValidateMode: "onChange"
     });
 
     // File states
-    const [cvFileName, setCvFileName] = useState('');
-    const [videoFileName, setVideoFileName] = useState('');
-    const cvInputRef = useRef(null);
-    const videoInputRef = useRef(null);
+    const [businessRegFile, setBusinessRegFile] = useState('');
+    const [certificationsFile, setCertificationsFile] = useState('');
+    const [pastProjectsFile, setPastProjectsFile] = useState('');
+    const [insuranceFile, setInsuranceFile] = useState('');
+    const [companyDocsFile, setCompanyDocsFile] = useState('');
+    const [cvFile, setCvFile] = useState('');
+    const [videoFile, setVideoFile] = useState('');
+    const [personalPhotoFile, setPersonalPhotoFile] = useState('');
 
-    // Watch Step 10 required fields
-    const fullTimeAvailability = watch('fullTimeAvailability');
-    const trainingCommitment = watch('trainingCommitment');
-
-    // Submit button enabled only when all required Step 10 fields are filled
-    const isStep10Complete = !!cvFileName && !!fullTimeAvailability && !!trainingCommitment;
+    const refs = {
+        businessReg: useRef(null),
+        certifications: useRef(null),
+        pastProjects: useRef(null),
+        insurance: useRef(null),
+        companyDocs: useRef(null),
+        cv: useRef(null),
+        video: useRef(null),
+        personalPhoto: useRef(null),
+    };
 
     useEffect(() => {
         if (!isOpen) {
-            // Reset everything when modal is closed
             setStep(1);
             setShowThankYou(false);
-            setCvFileName('');
-            setVideoFileName('');
-            reset(); // ← Clears all form values & errors
-            if (cvInputRef.current) cvInputRef.current.value = '';
-            if (videoInputRef.current) videoInputRef.current.value = '';
+            Object.values(refs).forEach(r => r.current && (r.current.value = ''));
+            setBusinessRegFile(''); setCertificationsFile(''); setPastProjectsFile(''); setInsuranceFile('');
+            setCompanyDocsFile(''); setCvFile(''); setVideoFile(''); setPersonalPhotoFile('');
+            reset();
         }
-    }, [isOpen]);
+    }, [isOpen, reset]);
 
-    // Validate current step
+    const totalSteps = 11;
+
     const validateStep = async () => {
-        const fieldsToValidate = getFieldsForStep(step);
-        const result = await trigger(fieldsToValidate);
-        return result;
+        const fields = getFieldsForStep(step);
+        return await trigger(fields);
     };
 
     const nextStep = async () => {
         const isValid = await validateStep();
-        if (isValid) setStep(prev => Math.min(prev + 1, 10));
+        if (isValid) setStep(prev => Math.min(prev + 1, totalSteps));
     };
 
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
+    const getFieldsForStep = (currentStep) => {
+        const map = {
+            1: ['companyName', 'location', 'website', 'whatsapp', 'email', 'contactPerson', 'yearsInOperation'],
+            2: ['systemTypes', 'totalProjects', 'avgSystemSize', 'teamSize', 'certifiedSupervisor', 'equipment', 'brands', 'pastWork', 'serviceRegions', 'regionalTravel'],
+            3: ['references', 'safetyTraining'],
+            4: ['workflow', 'softwareTools', 'qualityVerification', 'clientCommunication', 'fieldChallenges', 'installationTime', 'maintenanceServices', 'teamProfessionalism'],
+            5: ['energyFreedom', 'leadershipStyle', 'teamMorale', 'motivation', 'goodVsGreat', 'philanthropy', 'brandRepresentation'],
+            6: ['whyAncestro', 'latamNetwork', 'futureVision', 'monthlyCapacity', 'partnershipType', 'ancestroAcademy'],
+            7: ['selfDiscipline', 'dailyHabits', 'habitToImprove', 'stressHandling', 'mindfulness', 'selfTalk'],
+            8: ['craftImprovement', 'frustrationMoment1', 'frustrationMoment2', 'missionAlignment'],
+            9: ['energyType', 'leadershipComfort', 'learningOpenness', 'communicationPref', 'bestEnvironment'],
+            10: ['teamValues', 'physicalWellbeing', 'personalGrowth', 'fitnessSupport', 'fitnessChallenge'],
+            11: ['availabilityConfirmation']
+        };
+        return map[currentStep] || [];
+    };
+
     const onSubmit = (data) => {
-        console.log('Form submitted:', { ...data, cvFileName, videoFileName });
+        console.log('Installer Form Submitted:', {
+            ...data,
+            files: { businessRegFile, certificationsFile, pastProjectsFile, insuranceFile, companyDocsFile, cvFile, videoFile, personalPhotoFile }
+        });
         setShowThankYou(true);
     };
 
     const handleClose = () => {
         setStep(1);
         setShowThankYou(false);
-        setCvFileName('');
-        setVideoFileName('');
         onClose?.();
     };
 
-    const getFieldsForStep = (currentStep) => {
-        switch (currentStep) {
-            case 1: return ['fullName', 'location', 'whatsapp', 'email', 'dob', 'languages', 'socialProfile'];
-            case 2: return ['education', 'salesExperience', 'renewableExperience', 'bestSalesStory', 'currentWorkStatus'];
-            case 3: return ['buildTrust', 'commStyle', 'motivationRenewable', 'cameraComfort', 'crmComfort', 'strongMarkets'];
-            case 4: return ['remoteWork', 'inPersonDays', 'handleObjections', 'learnProducts', 'lifeChangingSale', 'followUpStyle'];
-            case 5: return ['whyAncestro', 'freedomMeaning', 'latamFuture', 'resonance', 'incomeGoals', 'successVision'];
-            case 6: return ['discipline', 'dailyHabits', 'habitToImprove', 'handleFailure', 'meditation', 'selfTalk'];
-            case 7: return ['currentBlock', 'freedomMoment', 'workThatEnergizes', 'whyMissionDriven'];
-            case 8: return ['energyType', 'publicSpeaking', 'learningWillingness', 'structurePreference', 'bestEnvironment'];
-            case 9: return ['spiritualTeam', 'physicalWellbeing', 'personalGrowth', 'fitnessEncouragement', 'fitnessChallenge'];
-            case 10: return ['fullTimeAvailability', 'trainingCommitment'];
-            default: return [];
-        }
-    };
+    // Step 11 logic
+    const availabilityConfirmation = watch('availabilityConfirmation');
+    const hasAtLeastOneDoc = !!companyDocsFile || !!cvFile;
+    const isStep11Complete = hasAtLeastOneDoc && !!availabilityConfirmation;
 
     return (
         <>
@@ -119,14 +133,14 @@ export default function InstallerForm({ isOpen = false, onClose }) {
                                 >
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="flex flex-col p-5 sm:p-12 text-white">
-                                            {/* Header - FIXED */}
+                                            {/* Header */}
                                             <div className='w-full flex justify-center items-center'>
                                                 <header className="text-center mb-10 w-full">
                                                     <h1 className="text-[27px] font-bold uppercase tracking-wider mb-3">
-                                                        ANCESTRO ENERGY – SALES REPRESENTATIVE APPLICATION
+                                                        Ancestro Energy – Installer Application
                                                     </h1>
                                                     <p className="text-lg opacity-90">
-                                                        Join the movement powering a cleaner, freer Latin America.
+                                                        Join the builders powering Latin America’s renewable revolution.
                                                     </p>
                                                     <p className="text-sm mt-2 sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">#LosAncestros</p>
                                                 </header>
@@ -135,31 +149,34 @@ export default function InstallerForm({ isOpen = false, onClose }) {
                                             {/* Form Fields */}
                                             <div className="mb-10 flex flex-col border border-[#FFFFFF1A] p-[20px] rounded-[20px]">
                                                 <h2 className="text-xl font-bold uppercase text-[#F8B03B] text-center mb-10 tracking-wider">
-                                                    {step === 1 && 'Personal Information'}
-                                                    {step === 2 && 'Background & Education'}
-                                                    {step === 3 && 'Skills & Communication'}
-                                                    {step === 4 && 'Role Expectations & Execution'}
-                                                    {step === 5 && 'Vision & Purpose'}
-                                                    {step === 6 && 'Personal Alignment & Self-Awareness'}
-                                                    {step === 7 && 'Motivation & Purpose'}
-                                                    {step === 8 && 'Personality & Communication'}
-                                                    {step === 9 && 'Growth & Culture Fit'}
-                                                    {step === 10 && 'Final Steps'}
+                                                    {step === 1 && 'Company & Contact Information'}
+                                                    {step === 2 && 'Experience & Capability'}
+                                                    {step === 3 && 'Certifications & References'}
+                                                    {step === 4 && 'Workflow & Operations'}
+                                                    {step === 5 && 'Philosophy & Team Culture'}
+                                                    {step === 6 && 'Future Vision'}
+                                                    {step === 7 && 'Personal Alignment & Self-Awareness'}
+                                                    {step === 8 && 'What drives you to keep improving your craft?'}
+                                                    {step === 9 && 'Personal Alignment & Self-Awareness'}
+                                                    {step === 10 && 'Personal Alignment & Self-Awareness'}
+                                                    {step === 11 && 'Final Steps'}
                                                 </h2>
 
                                                 <div className={`grid gap-x-12 gap-y-3 ${step === 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                                                     {/* STEP 1 */}
                                                     {step === 1 && (
                                                         <>
-                                                            <Input label="Full Name" name="fullName" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Country and City" name="location" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="WhatsApp Number" name="whatsapp" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Email Address" name="email" register={register} required errors={errors} type="email" clearErrors={clearErrors} />
-                                                            <Input label="Date of Birth" name="dob" register={register} required errors={errors} type="date" clearErrors={clearErrors} />
-                                                            
-                                                            <Input label="Languages Spoken" name="languages" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Full Name or Company Name" name="companyName" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Country / City / Region of Operation" name="location" register={register} required errors={errors} clearErrors={clearErrors} />
                                                             <div className="col-span-2">
-                                                                <Input label="LinkedIn or Instagram Profile" name="socialProfile" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                                <FileUpload label="Business Registration (upload legal certificate if applicable)" required fileName={businessRegFile} onChange={(e) => { const f = e.target.files[0]; if (f) { setBusinessRegFile(f.name); setValue('businessReg', f); } }} inputRef={refs.businessReg} />
+                                                            </div>
+                                                            <Input label="Company Website or Social Media (if available)" name="website" register={register} errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="WhatsApp Number" name="whatsapp" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Email Address" name="email" register={register} required type="email" errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Primary Contact Person" name="contactPerson" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <div className="col-span-2">
+                                                                <Input label="Years in Operation" name="yearsInOperation" register={register} required type="number" errors={errors} clearErrors={clearErrors} />
                                                             </div>
                                                         </>
                                                     )}
@@ -167,174 +184,157 @@ export default function InstallerForm({ isOpen = false, onClose }) {
                                                     {/* STEP 2 */}
                                                     {step === 2 && (
                                                         <>
-                                                            <Input label="What is your educational background?" name="education" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Do you have prior experience in sales? If yes, describe the industries and products you’ve worked with." name="salesExperience" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Have you ever sold renewable energy or financial services before?" name="renewableExperience" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Describe your most successful sales experience and what made it successful." name="bestSalesStory" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Are you currently self-employed, working in sales, or transitioning from another field?" name="currentWorkStatus" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What types of renewable systems have you installed? (Solar PV, battery storage, EV chargers, hybrid systems, etc.)" name="systemTypes" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How many total projects have you completed to date?" name="totalProjects" register={register} required type="number" errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What is your average system size (kW) for installations?" name="avgSystemSize" register={register} required type="number" errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How many technicians or workers are on your team?" name="teamSize" register={register} required type="number" errors={errors} clearErrors={clearErrors} />
+                                                            <RadioCheckbox label="Do you have a dedicated electrical engineer or certified supervisor on staff?" options={['YES', 'NO']} name="certifiedSupervisor" register={register} required control={control} clearErrors={clearErrors} />
+                                                            <Input label="What tools, vehicles, and safety equipment do you currently own?" name="equipment" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What inverter, panel, and battery brands are you familiar with?" name="brands" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Have you previously worked under a larger EPC, or directly with clients?" name="pastWork" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Which regions or cities can you serve within your country?" name="serviceRegions" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <RadioCheckbox label="Are you available to travel or expand regionally under Ancestro’s network?" options={['YES', 'NO']} name="regionalTravel" register={register} required control={control} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
                                                     {/* STEP 3 */}
                                                     {step === 3 && (
                                                         <>
-                                                            <Input label="How do you build trust with clients during your first interaction?" name="buildTrust" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Describe your communication style in three words." name="commStyle" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What motivates you most about selling renewable energy solutions?" name="motivationRenewable" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How comfortable are you speaking on camera or conducting video calls? (1–10)" name="cameraComfort" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Rate your comfort level using CRM systems and digital tools. (1–10)" name="crmComfort" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What languages or markets are you most confident selling in?" name="strongMarkets" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <FileUpload label="Upload all relevant certifications (electrical, solar, battery, EV, or safety)." required fileName={certificationsFile} onChange={(e) => e.target.files[0] && setCertificationsFile(e.target.files[0].name)} inputRef={refs.certifications} />
+                                                            <FileUpload label="Upload photos of 3–5 past projects (roof, ground mount, or EV)." required fileName={pastProjectsFile} onChange={(e) => e.target.files[0] && setPastProjectsFile(e.target.files[0].name)} inputRef={refs.pastProjects} />
+                                                            <Input label="Provide two professional references (clients or companies). Include name, phone, and email." name="references" register={register} required errors={errors} clearErrors={clearErrors} placeholder="1. Juan Pérez – +57 300... | 2. María Gómez – +51..." />
+                                                            <FileUpload label="Do you have liability insurance, installation insurance, or worker protection coverage? (upload proof)" fileName={insuranceFile} onChange={(e) => e.target.files[0] && setInsuranceFile(e.target.files[0].name)} inputRef={refs.insurance} />
+                                                            <RadioCheckbox label="Are your installers trained in fall protection, electrical safety, and first aid?" options={['YES', 'NO']} name="safetyTraining" register={register} required control={control} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
                                                     {/* STEP 4 */}
                                                     {step === 4 && (
                                                         <>
-                                                            <Input label="Are you comfortable working remotely with a results-based structure?" name="remoteWork" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Are you able to attend two in-person collaboration days per week?" name="inPersonDays" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How do you handle objections or rejection in a sales conversation?" name="handleObjections" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What’s your process for learning and mastering new products quickly?" name="learnProducts" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Describe a time you helped someone make a decision that truly improved their life." name="lifeChangingSale" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What’s your approach to follow-ups and closing deals?" name="followUpStyle" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Describe your typical workflow from receiving project documents to completion." name="workflow" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What software or tools do you use for scheduling, design, or reporting?" name="softwareTools" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How do you verify that installations meet quality and safety standards?" name="qualityVerification" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What is your process for communicating updates to clients or project managers?" name="clientCommunication" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What challenges do you face most often in the field, and how do you solve them?" name="fieldChallenges" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What’s your average installation time for a 10 kW system? For a 100 kW system?" name="installationTime" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Do you offer ongoing maintenance or monitoring services?" name="maintenanceServices" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How do you ensure your team stays professional and presentable on-site?" name="teamProfessionalism" register={register} required errors={errors} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
                                                     {/* STEP 5 */}
                                                     {step === 5 && (
                                                         <>
-                                                            <Input label="Why do you want to represent Ancestro Energy?" name="whyAncestro" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What does “freedom through energy” mean to you personally?" name="freedomMeaning" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How do you think renewable energy will transform Latin America in the next 5 years?" name="latamFuture" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Ancestro combines spirituality, business, and philanthropy — which of these resonates most with you and why?" name="resonance" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What are your personal income and lifestyle goals for the next 12 months?" name="incomeGoals" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What will success look like for you one year from now as part of this movement?" name="successVision" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What does “building energy freedom” mean to you?" name="energyFreedom" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Describe your leadership style when managing your team." name="leadershipStyle" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How do you keep morale and focus high during long or difficult installations?" name="teamMorale" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What motivates you to continue working in this field?" name="motivation" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What do you believe separates a good installer from a great one?" name="goodVsGreat" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Ancestro’s projects combine technology and philanthropy. How do you feel about installing systems that also serve low-income or indigenous communities?" name="philanthropy" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Are you comfortable representing Ancestro’s brand standards and values on every site?" name="brandRepresentation" register={register} required errors={errors} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
                                                     {/* STEP 6 */}
                                                     {step === 6 && (
                                                         <>
-                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Lifestyle & Mindset</p>
-                                                            <Input label="On a scale of 1–10, how would you rate your self-discipline?" name="discipline" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What daily habits keep you focused or grounded?" name="dailyHabits" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What’s one habit you’d like to improve this year?" name="habitToImprove" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How do you handle rejection or failure?" name="handleFailure" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Do you meditate or have a mindfulness practice? If so, how often?" name="meditation" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How would you describe your self-talk when you face challenges?" name="selfTalk" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <FileUpload label="Upload a recent photo that represents who you are (optional)" />
+                                                            <Input label="Why do you want to work with Ancestro Energy?" name="whyAncestro" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What excites you most about joining a LATAM-wide renewable network?" name="latamNetwork" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Where do you see your business or career 3 years from now?" name="futureVision" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How many projects per month could your team realistically complete?" name="monthlyCapacity" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What type of partnership would you prefer: subcontractor, exclusive installer, or regional EPC partner?" name="partnershipType" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Are you interested in future training or certification under the Ancestro Academy program?" name="ancestroAcademy" register={register} required errors={errors} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
                                                     {/* STEP 7 */}
                                                     {step === 7 && (
                                                         <>
-                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Motivation & Purpose</p>
-                                                            <Input label="What is currently holding you back from your highest potential?" name="currentBlock" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Describe a moment when you felt frustrated by limits or systems in society..." name="freedomMoment" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What kind of work makes you feel most alive?" name="workThatEnergizes" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Why do you want to be part of a mission-driven, health-conscious company like Ancestro?" name="whyMissionDriven" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Lifestyle & Mindset</p>
+
+                                                            <Input label="On a scale of 1–10, how would you rate your self-discipline?" name="selfDiscipline" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What daily habits keep you focused or grounded?" name="dailyHabits" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What’s one habit you’d like to improve this year?" name="habitToImprove" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How do you handle stress or setbacks on-site?" name="stressHandling" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Do you meditate, exercise, or have a mindfulness practice? How often?" name="mindfulness" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How would you describe your self-talk when things get difficult?" name="selfTalk" register={register} required errors={errors} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
                                                     {/* STEP 8 */}
                                                     {step === 8 && (
                                                         <>
-                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Personality & Communication</p>
-                                                            <Input label="How would you describe your natural energy: introvert, extrovert, or ambivert?" name="energyType" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How comfortable are you speaking to a group or presenting on stage? (1–10)" name="publicSpeaking" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How comfortable are you learning new material weekly or receiving coaching?" name="learningWillingness" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="Do you prefer structured guidance or freedom to self-direct?" name="structurePreference" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What type of environment helps you perform at your best?" name="bestEnvironment" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Motivation & Purpose</p>
+
+                                                            <Input label="What drives you to keep improving your craft?" name="craftImprovement" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Describe a moment when you felt frustrated by the limits of the system and wanted to create more freedom for yourself or your community." name="frustrationMoment1" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Describe a moment when you felt frustrated by the limits of the system and wanted to create more freedom for yourself or your community." name="frustrationMoment2" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="Why do you want to be part of a mission-driven, health-conscious company like Ancestro?" name="missionAlignment" register={register} required errors={errors} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
                                                     {/* STEP 9 */}
                                                     {step === 9 && (
                                                         <>
-                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Growth & Culture Fit</p>
-                                                            <Input label="Would you find it empowering to work within a team that values spirituality, health, and continual self-improvement?" name="spiritualTeam" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="How do you maintain your physical wellbeing and energy levels?" name="physicalWellbeing" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="What areas of personal growth are you actively working on right now?" name="personalGrowth" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="If the company encouraged fitness and wellbeing goals as part of professional development, how would that feel to you?" name="fitnessEncouragement" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <Input label="If you were selected for this role only after demonstrating a commitment to improve your physical fitness..." name="fitnessChallenge" register={register} required errors={errors} clearErrors={clearErrors} />
-                                                            <FileUpload label="Upload a recent photo that represents who you are (optional)." />
+                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Personality & Communication</p>
+
+                                                            <Input label="How would you describe your natural energy: introvert, extrovert, or ambivert?" name="energyType" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How comfortable are you training others or leading a team? (1–10)" name="leadershipComfort" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How open are you to learning new methods or technologies each month?" name="learningOpenness" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How do you prefer to communicate with your project managers — voice notes, calls, or written reports?" name="communicationPref" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What type of environment helps you perform at your best?" name="bestEnvironment" register={register} required errors={errors} clearErrors={clearErrors} />
                                                         </>
                                                     )}
 
-                                                    {/* STEP 10 - FINAL STEP */}
+                                                    {/* STEP 10 */}
                                                     {step === 10 && (
                                                         <>
-                                                            <FileUpload
-                                                                label="Upload your CV or resume."
-                                                                required
-                                                                fileName={cvFileName}
-                                                                onChange={(e) => {
-                                                                    const file = e.target.files[0];
-                                                                    if (file) {
-                                                                        setCvFileName(file.name);
-                                                                        setValue('cvFile', file, { shouldValidate: true });
-                                                                        clearErrors('cvFile');
-                                                                    }
-                                                                }}
-                                                                inputRef={cvInputRef}
-                                                            />
-                                                            {errors.cvFile && <p className="text-red-500 text-xs mt-1">{errors.cvFile.message}</p>}
+                                                            <p className="text-sm -mt-8 mb-[10px] sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">Growth & Culture Fit</p>
 
-                                                            <FileUpload
-                                                                label="Upload a 1-minute video introducing yourself and why you want to join Ancestro. (Optional)"
-                                                                fileName={videoFileName}
-                                                                onChange={(e) => e.target.files[0] && setVideoFileName(e.target.files[0].name)}
-                                                                inputRef={videoInputRef}
-                                                            />
+                                                            <Input label="Would you find it empowering to work within a team that values spirituality, health, and continual self-improvement?" name="teamValues" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="How do you maintain your physical wellbeing and energy levels while working long days outdoors?" name="physicalWellbeing" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="What areas of personal growth are you actively working on right now?" name="personalGrowth" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="If the company encouraged fitness and wellbeing goals as part of professional development, how would that feel to you?" name="fitnessSupport" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <Input label="If you were selected for this role only after demonstrating a commitment to improve your physical fitness or overall wellbeing, would you be open to that challenge and to receiving support from our team to achieve it?" name="fitnessChallenge" register={register} required errors={errors} clearErrors={clearErrors} />
+                                                            <FileUpload label="Upload a recent photo that represents who you are (optional)." fileName={personalPhotoFile} onChange={(e) => e.target.files[0] && setPersonalPhotoFile(e.target.files[0].name)} inputRef={refs.personalPhoto} />
+                                                        </>
+                                                    )}
 
-                                                            <RadioCheckbox
-                                                                label="CONFIRM FULL-TIME AVAILABILITY."
-                                                                options={['YES', 'NO']}
-                                                                name="fullTimeAvailability"
-                                                                register={register}
-                                                                required
-                                                                error={errors.fullTimeAvailability}
-                                                                watch={watch}
-                                                                clearErrors={clearErrors}
-                                                            />
+                                                    {/* STEP 11 */}
+                                                    {step === 11 && (
+                                                        <>
 
-                                                            <RadioCheckbox
-                                                                label="Confirm willingness to participate in initial training and evaluation phase."
-                                                                options={['YES', 'NO']}
-                                                                name="trainingCommitment"
-                                                                register={register}
-                                                                required
-                                                                error={errors.trainingCommitment}
-                                                                watch={watch}
-                                                                clearErrors={clearErrors}
-                                                            />
+                                                            <FileUpload label="Upload your company profile, ID, or registration documents." required fileName={companyDocsFile} onChange={(e) => { const f = e.target.files[0]; if (f) { setCompanyDocsFile(f.name); setValue('companyDocsFile', f); } }} inputRef={refs.companyDocs} />
+                                                            <FileUpload label="Upload your CV or résumé (for individuals)." fileName={cvFile} onChange={(e) => { const f = e.target.files[0]; if (f) { setCvFile(f.name); setValue('cvFile', f); } }} inputRef={refs.cv} />
+                                                            <FileUpload label="Upload a 1-minute video introducing yourself or your team and why you want to join Ancestro. (Optional)" fileName={videoFile} onChange={(e) => e.target.files[0] && setVideoFile(e.target.files[0].name)} inputRef={refs.video} accept="video/*" />
+                                                            <Input label="Confirm availability for onboarding and field evaluation." name="availabilityConfirmation" register={register} required={hasAtLeastOneDoc} errors={errors} clearErrors={clearErrors} placeholder="Yes, I am available and committed" />
                                                         </>
                                                     )}
                                                 </div>
                                             </div>
 
-                                            {/* Buttons */}
+                                            {/* Navigation Buttons */}
                                             <div className="flex flex-col gap-4">
                                                 {step > 1 && (
                                                     <button type="button" onClick={prevStep} className="w-full cursor-pointer py-3 border border-white/40 rounded-full hover:bg-white/10 transition font-medium">
                                                         Back
                                                     </button>
                                                 )}
-                                                {step < 10 ? (
+                                                {step < 11 ? (
                                                     <button type="button" onClick={nextStep} className="w-full py-4 cursor-pointer bg-[#F8B03B] uppercase text-black font-bold rounded-full transition text-lg">
                                                         Next
                                                     </button>
                                                 ) : (
                                                     <button
                                                         type="submit"
-                                                        disabled={!isStep10Complete}
+                                                        disabled={!isStep11Complete}
                                                         className={`w-full py-4 rounded-full transition text-lg font-bold uppercase
-                                                            ${isStep10Complete
+                                                            ${isStep11Complete
                                                                 ? 'bg-[#F8B03B] text-black cursor-pointer hover:bg-[#f9c65b]'
                                                                 : 'bg-gray-700 text-gray-400 cursor-not-allowed opacity-70'
                                                             }`}
                                                     >
-                                                        {isStep10Complete ? 'Submit Application' : 'Submit Application'}
+                                                        Submit Application
                                                     </button>
                                                 )}
                                             </div>
@@ -364,7 +364,10 @@ export default function InstallerForm({ isOpen = false, onClose }) {
                                     flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
                                     gap: '30px', textAlign: 'center', color: 'white', fontFamily: 'Lato, sans-serif',
                                 }}>
-                                    <ThanksModal text1={"This is more than a sales role — it’s an initiation into leadership."} text2={"Every conversation you have spreads the light of clean energy, freedom, and abundance across Latin America."}/>
+                                    <ThanksModal
+                                        text1="Thank you for applying to become an Ancestro Installer Partner."
+                                        text2="We will review your submission and contact you within 48 hours."
+                                    />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -375,8 +378,7 @@ export default function InstallerForm({ isOpen = false, onClose }) {
     );
 }
 
-// Reusable Input - Error disappears on typing
-// Updated Input component ─ makes date picker icon WHITE
+// EXACT SAME COMPONENTS AS SALES FORM
 function Input({ label, name, register, required, errors, type = 'text', clearErrors, ...props }) {
     return (
         <div className="relative">
@@ -389,17 +391,18 @@ function Input({ label, name, register, required, errors, type = 'text', clearEr
                     required: required && 'This field is required',
                     onChange: () => clearErrors(name),
                 })}
-                className={`w-full font-helvetica font-normal bg-transparent border-b-2 border-white/40 focus:border-[#F8B03B] outline-none text-white placeholder-white/50 transition
-                    ${type === 'date' ? 'date-input-white' : ''}
-                `}
+                className="w-full font-helvetica font-normal bg-transparent border-b-2 border-white/40 focus:border-[#F8B03B] outline-none text-white placeholder-white/50 transition"
                 {...props}
             />
             {errors[name] && <p className="text-red-500 text-xs mt-1">{errors[name].message}</p>}
         </div>
     );
 }
-// Radio with error clearing on select
-function RadioCheckbox({ label, options, name, register, required, error, watch, clearErrors }) {
+
+function RadioCheckbox({ label, options, name, register, required, control, clearErrors }) {
+    const value = useWatch({ control, name });
+    const error = control._formState.errors[name];
+
     return (
         <div className="mt-8">
             <p className="text-[14px] font-bold uppercase tracking-wider mb-4 opacity-90">{label}</p>
@@ -416,7 +419,7 @@ function RadioCheckbox({ label, options, name, register, required, error, watch,
                             className="sr-only"
                         />
                         <div className="relative w-6 h-6 rounded-md border border-white flex items-center justify-center">
-                            {watch(name) === option && (
+                            {value === option && (
                                 <svg className="h-4 w-4 text-[#F8B03B]" viewBox="0 0 18 18" fill="none">
                                     <path d="M6.70069 18C6.09858 17.9738 5.64512 17.6794 5.27691 17.1838C4.36999 15.9637 3.45174 14.7526 2.53802 13.5382C2.00533 12.8308 1.4651 12.1308 0.941465 11.4153C0.0217098 10.1584 0.609478 8.46311 2.06041 8.19079C2.61724 8.08612 3.10617 8.29138 3.51889 8.69209C4.50203 9.64643 5.47686 10.6114 6.45547 11.5715C6.83801 11.9468 6.97231 11.9403 7.32241 11.5118C10.3578 7.80072 13.3917 4.08885 16.4241 0.374521C16.5864 0.175802 16.744 -0.0212813 17.0157 0.00243407C17.4405 0.0392338 17.6374 0.52172 17.3914 0.955957C16.5818 2.38379 15.7639 3.8059 14.9483 5.22964C12.7066 9.14186 10.4619 13.0525 8.22481 16.968C7.86641 17.5952 7.36843 17.946 6.69993 18.0008L6.70069 18Z" fill="#F8B03B"/>
                                 </svg>
@@ -431,14 +434,13 @@ function RadioCheckbox({ label, options, name, register, required, error, watch,
     );
 }
 
-// File Upload
-function FileUpload({ label, required, fileName, onChange, inputRef }) {
+function FileUpload({ label, required, fileName, onChange, inputRef, accept }) {
     const id = `upload-${label.replace(/\s+/g, '-')}`;
     return (
         <div className="mt-6 border-b-2 border-white/40 pb-5">
             <label className="block text-[14px] font-bold uppercase tracking-wider mb-3 opacity-90">{label}</label>
             <div className="flex items-center gap-4">
-                <input type="file" id={id} className="hidden" ref={inputRef} onChange={onChange} />
+                <input type="file" id={id} className="hidden" ref={inputRef} onChange={onChange} accept={accept} />
                 <label htmlFor={id} className="cursor-pointer inline-flex items-center justify-center w-[70px] h-[34px] rounded-[10px] bg-[#FFFFFF33] text-white font-medium text-sm hover:bg-[#FFFFFF44] transition">
                     Upload
                 </label>

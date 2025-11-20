@@ -8,6 +8,11 @@ import image5 from '../../public/images/sectionItem5.png';
 import image6 from '../../public/images/sectionItem6.png';
 import Button from '../common/Button/Button';
 import SalesRepresentativeForm from '../Form/SalesRepresentativeForm';
+import InstallerForm from '../Form/InstallerForm';
+import ProjectManagerForm from '../Form/ProjectManagerForm';
+import CreditAnalystForm from '../Form/CreditAnalystForm';
+import FinancialAnalystForm from '../Form/FinancialAnalystForm';
+import MarketingCoordinatorForm from '../Form/MarketingCoordinatorForm';
 import { useTranslation } from 'react-i18next';
 
 const roleKeys = [
@@ -21,13 +26,37 @@ const roleKeys = [
 
 const images = [image1.src, image2.src, image3.src, image4.src, image5.src, image6.src];
 
+// Map role keys to their respective form components
+const formComponents = {
+  salesRepresentative: SalesRepresentativeForm,
+  installers: InstallerForm,
+  projectManagers: ProjectManagerForm,
+  creditAnalysts: CreditAnalystForm,
+  financialAnalysts: FinancialAnalystForm,
+  marketingCoordinator: MarketingCoordinatorForm,
+};
+
 function SectionItems() {
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(null); // Track which role's form to show
+
+  const openModal = (role) => {
+    setSelectedRole(role);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedRole(null);
+  };
+
+  // Get the correct form component
+  const ActiveForm = selectedRole ? formComponents[selectedRole] : null;
 
   return (
     <section className="w-full bg-black">
-      <div className="max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-20 xl:px-32 2xl:px-40 py-20 sm:py-28 lg:py-32">
+      <div className="max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-20 py-20 sm:py-28 lg:py-32">
         <div className="flex flex-col gap-y-32 lg:gap-y-40">
           {roleKeys.map((key, index) => {
             const isEven = index % 2 === 0;
@@ -58,7 +87,7 @@ function SectionItems() {
                   <div className="space-y-5 lg:space-y-6">
                     {[1, 2, 3, 4, 5, 6].map((n) => {
                       const text = t(`rolesSection.${key}.p${n}`);
-                      if (!text || text.includes('rolesSection.')) return null; // skip missing keys
+                      if (!text || text.includes('rolesSection.')) return null;
                       return (
                         <p
                           key={n}
@@ -72,7 +101,7 @@ function SectionItems() {
 
                   <Button
                     text={t('rolesSection.applyButton')}
-                    onClick={() => setModalOpen(true)}
+                    onClick={() => openModal(key)} // Pass the role key
                     classes="mt-[20px]"
                     textClasses="font-haas font-bold !text-[#F8B03B] text-[15px] mt-[10px]"
                   />
@@ -83,7 +112,10 @@ function SectionItems() {
         </div>
       </div>
 
-      <SalesRepresentativeForm isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      {/* Conditionally render the correct form based on selectedRole */}
+      {ActiveForm && (
+        <ActiveForm isOpen={modalOpen} onClose={closeModal} />
+      )}
     </section>
   );
 }

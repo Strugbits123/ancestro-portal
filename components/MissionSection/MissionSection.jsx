@@ -8,7 +8,7 @@ function MissionSection() {
   const { t } = useTranslation();
 
   return (
-    <section className="relative w-full px-14 py-[20px] bg-black flex justify-center -mt-[5%]">
+    <section className="relative w-full px-14 py-[20px] bg-black flex justify-center -mt-[11%]">
       <div className="flex flex-col md:flex-row gap-6 md:gap-x-[65px] w-full mx-auto">
         {/* Card 1 - The Ancestral Grid */}
         <div
@@ -19,7 +19,7 @@ function MissionSection() {
             backgroundPosition: 'center',
           }}
         >
-          <div className="absolute left-4 sm:left-[40px] bottom-4 sm:bottom-[40px] flex flex-col items-start text-left max-w-full w-full max-sm:px-5 sm:max-w-[75%]">
+          <div className="absolute left-4 sm:left-[40px] bottom-4 sm:bottom-[40px] flex flex-col items-start text-left max-w-full w-full max-sm:px-5 sm:max-w-[783px]">
             {/* Badge */}
             <div className="bg-[#F8B03B4D] border border-[#F8B03B1A] rounded-[5px] px-2 py-1 sm:px-2.5 sm:py-[5px]  mb-4 flex items-center justify-center">
               <p className="text-white font-helvetica font-bold text-sm sm:text-[18px] leading-[18px] text-center">
@@ -58,7 +58,7 @@ function MissionSection() {
             </h2>
 
             {/* Bullet Points */}
-            <ul className="list-disc pl-5 space-y-2 text-white font-helvetica font-normal text-base sm:text-[18px] leading-6 sm:leading-[24px]">
+            <ul className="list-disc pl-5  text-white font-helvetica font-normal text-base sm:text-[18px] leading-6 sm:leading-[24px]">
               <li>{t('missionSection.card2Bullet1')}</li>
               <li>{t('missionSection.card2Bullet2')}</li>
               <li>{t('missionSection.card2Bullet3')}</li>

@@ -76,24 +76,24 @@ function HeroSection() {
       </nav>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-[1080px] px-4 min-h-screen">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-[1200px]  px-4 min-h-screen">
 
-        <div className="bg-[#F8B03B4D] border border-[#F8B03B] px-2.5 py-[5px] mb-6 rounded-[5px]">
+        <div className="bg-[#F8B03B4D] border border-[#F8B03B] px-2.5 py-[2px] mb-6 rounded-[5px]">
           <p className="font-helvetica font-normal text-[20px] tracking-[2px] text-white">
             {t('heroSection.banner')}
           </p>
         </div>
 
-        <h1 className="font-helvetica font-bold text-[40px] tracking-[2px] uppercase mb-6 text-white">
+        <h1 className="font-helvetica font-bold text-[40px] tracking-[2px] leading-10 max-w-[744px] uppercase mb-6 text-white">
           {t('heroSection.title')}
         </h1>
 
         <p 
-          className="font-helvetica font-normal text-[20px] leading-[22px] mb-4 text-white"
+          className="font-helvetica font-light w-full text-[20px] tracking-wider leading-[22px] mb-4 text-[#FFFFFF]"
           dangerouslySetInnerHTML={{ __html: t('heroSection.paragraph1') }} 
         />
 
-        <p className="font-helvetica font-normal text-[20px] leading-[22px] text-white">
+        <p className="font-helvetica font-light w-full text-[20px] leading-[22px] text-white">
           {t('heroSection.paragraph2')}
         </p>
 
