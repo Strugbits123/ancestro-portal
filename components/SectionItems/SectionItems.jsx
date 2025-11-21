@@ -62,9 +62,9 @@ function SectionItems() {
   const ActiveForm = selectedRole ? formComponents[selectedRole] : null;
 
   return (
-    <section className="w-full bg-black">
+    <section id="job-application-section" className="w-full bg-black">
       <div className="max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-20 py-20 sm:py-28 lg:py-32">
-        <div className="flex flex-col gap-y-32 lg:gap-y-40">
+        <div className="flex flex-col gap-y-12 lg:gap-y-40">
           {roleKeys.map((key, index) => {
             const isEven = index % 2 === 0;
 

@@ -1,18 +1,22 @@
 'use client'
-import React from 'react';
+import React,{useState} from 'react';
 import bgImage from '../../public/images/thirdSection.png';
 import Button from '../common/Button/Button';
 import { useTranslation } from 'react-i18next';
+import SalesRepModal from '../Form/SalesRepresentative/SalesRepresentativeForm';
 
 function ThirdSection() {
   const { t } = useTranslation();
+   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="relative bg-black w-full overflow-hidden">
+    <>
+    <section className="relative  h-auto bg-black w-full overflow-hidden">
       {/* Main Background with Rounded Container */}
-      <div className="relative mx-auto max-w-[1920px]">
+     <div className='flex flex-col gap-y-[80px] w-full'>
+       <div className="relative sm:px-[90px]  max-sm:!px-5 ">
         <div
-          className="relative mx-4 sm:mx-8 lg:mx-20 xl:mx-32 2xl:mx-48"
+          className="relative max-sm:h-auto! w-full "
           style={{
             borderRadius: '50px',
             height: '700px',
@@ -31,8 +35,8 @@ function ThirdSection() {
         >
           {/* Content Inside */}
           <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20 xl:px-52">
-            <div className="bg-[#F8B03B4D] border border-[#F8B03B] px-4 sm:px-6 py-2 mb-8 rounded-md">
-              <p className="font-helvetica font-normal text-lg sm:text-xl lg:text-[20px] tracking-[2px] text-white uppercase">
+            <div className="bg-[#F8B03B4D] border border-[#F8B03B] px-4 sm:px-6 py-2 mb-8 max-sm:mt-6 rounded-md">
+              <p className="font-helvetica font-normal text-lg max-sm:text-center text-[16px] lg:text-[20px] tracking-[2px] text-white uppercase">
                 {t('cultureSection.topBanner')}
               </p>
             </div>
@@ -57,7 +61,7 @@ function ThirdSection() {
       </div>
 
       {/* Bottom Frosted Glass Card */}
-      <div className="relative -mt-20 sm:-mt-28 lg:-mt-32 xl:-mt-10 px-5 sm:px-10 lg:px-20 xl:px-48 2xl:px-64">
+      <div className="relative  sm:-mt-28 lg:-mt-32 xl:-mt-10 px-5 sm:px-10 lg:px-20 xl:px-48 2xl:px-64">
         <div
           className="mx-auto w-full max-w-[1338px] px-[10px] rounded-2xl lg:rounded-[20px] py-16 sm:py-20 lg:py-[87px] text-center"
           style={{
@@ -84,6 +88,11 @@ function ThirdSection() {
             text={t('cultureSection.applyButton')}
             classes="mt-[20px] mb-[10px]"
             textClasses="font-haas font-bold !text-[#F8B03B] text-[15px] mt-[10px]"
+            onClick={() => {
+    document
+      .getElementById('job-application-section')
+      ?.scrollIntoView({ behavior: 'smooth' });
+  }}       
           />
 
           <p className="font-helvetica font-light italic text-base sm:text-lg lg:text-[20px] leading-[22px] lg:leading-[28px] text-white max-w-[900px] mx-auto px-4">
@@ -92,8 +101,11 @@ function ThirdSection() {
         </div>
       </div>
 
+     </div>
       <div className="h-20 lg:h-32" />
     </section>
+  
+          </>
   );
 }
 

@@ -92,6 +92,17 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
 
     console.log("Submitting form data:", submissionData);
 
+     Object.keys(submissionData).forEach((key) => {
+    const value = submissionData[key];
+
+    // If it's a File object and it has a 'name', try to replace with stored objectURL
+    if (value instanceof File) {
+      // Assuming you stored the objectURL on the File object itself after upload
+      // e.g., file.objectURL = "https://s3...."
+      submissionData[key] = value.objectURL || value.name; // fallback to file name
+    }
+  });
+
     try {
       const response = await fetch("/api/forms/submit", {
         method: "POST",
@@ -159,7 +170,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                         </p>
                         {config.hashtag && (
                           <p className="text-sm mt-2 sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">
-                            {config.hashtag}
+                            {t(config.hashtag)}
                           </p>
                         )}
                       </header>
@@ -192,35 +203,15 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                 className={isFullWidth ? "col-span-full" : ""}
                               >
                                 {field.type === "file" && (
-                                  // <FileUpload
-                                  //   label={t(field.label)}
-                                  //   required={field.required}
-                                  //   inputRef={
-                                  //     (fileRefs.current[field.name] =
-                                  //       fileRefs.current[field.name] ||
-                                  //       React.createRef())
-                                  //   }
-                                  //   onChange={(e) => {
-                                  //     const file = e.target.files?.[0];
-                                  //     if (file) {
-                                  //       setValue(field.name, file, {
-                                  //         shouldValidate: true,
-                                  //       });
-                                  //     }
-                                  //     clearErrors(field.name);
-                                  //   }}
-                                  //   hasTriedNext={
-                                  //     hasTriedNext && field.required
-                                  //   }
-                                  //   accept={field.accept}
-                                  // />
                                   <FileUpload
                                     label={t(field.label)}
+                                    fieldName={field.name}
                                     inputRef={
                                       (fileRefs.current[field.name] =
                                         fileRefs.current[field.name] || React.createRef())
                                     }
                                     onChange={(e) => {
+                                      
                                       const file = e.target.files?.[0];
                                       if (file) {
                                         setValue(field.name, file, {
@@ -322,8 +313,8 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
 
       {/* Thank You Modal */}
       <ThanksModal
-        text1={text1}
-        text2={text2}
+        text1={t(config.thanks.text1)}
+        text2={t(config.thanks.text2)}
         isOpen={showThankYou}
         onClose={handleThanksClose}
         config={config.thanks}

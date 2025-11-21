@@ -1,82 +1,49 @@
 import { useTranslation } from "react-i18next";
 import { useId, useState } from "react";
 
-function FileUpload({ label, required = false, onChange, inputRef, accept, error }) {
+function FileUpload({ label, required = false, onChange, inputRef, accept, error, fieldName }) {
   const { t } = useTranslation();
   const id = useId();
-  const [fileName, setFileName] = useState(""); 
+  const [fileName, setFileName] = useState("");
+  const handleChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  // const handleChange = (e) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) setFileName(file.name);
-  //   onChange?.(e); // call parent's onChange for react-hook-form
-  // };
-  // const handleChange = async (e) => {
-  //   const file = e.target.files?.[0];
-  //   if (!file) return;
+    setFileName(file.name);
 
-  //   setFileName(file.name);
+    try {
+      // Get signed URL
+      const res = await fetch("/api/file-upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type,
+          field: fieldName, // <-- dynamic now
+        }),
+      });
 
-  //   try {
-  //     // 1️⃣ Get signed URL from backend
-  //     const res = await fetch("/api/file-upload", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ fileName: file.name, fileType: file.type }),
-  //     });
+      const data = await res.json();
+      const uploadURL = data.uploadURL;  // must match backend key
+      const fileKey = data.fileKey;
+      const objectURL = data.objectURL;
 
-  //     const { uploadURL, fileKey } = await res.json();
+      if (!uploadURL) throw new Error("No signed URL returned");
 
-  //     // 2️⃣ Upload file to S3
-  //     await fetch(uploadURL, {
-  //       method: "PUT",
-  //       body: file,
-  //       headers: { "Content-Type": file.type },
-  //     });
+      // Upload file to S3
+      await fetch(uploadURL, {
+        method: "PUT",              // ✅ must be PUT
+        body: file,
+        headers: { "Content-Type": file.type },
+      });
 
-  //     // 3️⃣ Update react-hook-form with fileKey
-  //     onChange?.({ target: { files: [file], value: fileKey } });
-  //   } catch (err) {
-  //     console.error("Upload failed:", err);
-  //   }
-  // };
-const handleChange = async (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-
-  setFileName(file.name);
-
-  try {
-    // Get signed URL
-    const res = await fetch("/api/file-upload", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        fileName: file.name,
-        fileType: file.type,
-        field: "cvFile", // matches backend
-      }),
-    });
-
-    const data = await res.json();
-    const uploadURL = data.uploadURL;  // must match backend key
-    const fileKey = data.fileKey;
-
-    if (!uploadURL) throw new Error("No signed URL returned");
-
-    // Upload file to S3
-    await fetch(uploadURL, {
-      method: "PUT",              // ✅ must be PUT
-      body: file,
-      headers: { "Content-Type": file.type },
-    });
-
-    // Update react-hook-form
-    onChange?.({ target: { files: [file], value: fileKey } });
-  } catch (err) {
-    console.error("Upload failed:", err);
-  }
-};
+      file.objectURL = data.objectURL;
+      // Update react-hook-form
+      onChange?.({ target: { files: [file], value: fileKey } });
+    } catch (err) {
+      console.error("Upload failed:", err);
+    }
+  };
 
 
   return (
