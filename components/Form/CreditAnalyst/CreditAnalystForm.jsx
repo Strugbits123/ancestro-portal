@@ -2379,6 +2379,8 @@ export default function creditAnalystModal({ isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       config={creditAnalystConfig} // pass the config here
+      position="Credit Analyst"
+
     />
   );
 }

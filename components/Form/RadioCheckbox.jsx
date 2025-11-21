@@ -64,9 +64,9 @@ function RadioCheckbox({
       </div>
 
       {/* Optional error message */}
-      {hasTriedNext && !value && (
+      {/* {hasTriedNext && !value && (
         <p className="text-red-500 text-xs mt-2">{t("common.required")}</p>
-      )}
+      )} */}
     </div>
   );
 }

@@ -1568,6 +1568,8 @@ export default function FinancialAnalystModal({ isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       config={financialAnalystConfig} // pass the config here
+      position="Financial Analyst"
+
     />
   );
 }

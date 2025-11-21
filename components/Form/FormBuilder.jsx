@@ -1,16 +1,15 @@
-"use client";
-import React, { useState, useRef, useEffect } from "react";
+// "use client";
+import React, { useState, useRef, useEffect, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import ThanksModal from "./ThanksModal";
 
+import ThanksModal from "./ThanksModal";
 import Input from "./Input";
 import FileUpload from "./FileUpload";
 import RadioCheckbox from "./RadioCheckbox";
 
-export default function FormBuilder({ config, isOpen = false, onClose }) {
+export default function FormBuilder({ config, isOpen = false, onClose, position, text1, text2 }) {
   const [step, setStep] = useState(1);
   const [showThankYou, setShowThankYou] = useState(false);
   const [hasTriedNext, setHasTriedNext] = useState(false);
@@ -32,8 +31,9 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
 
   const currentStepConfig = config.steps[step - 1];
   const isLastStep = step === config.steps.length;
+  const watchedValues = watch();
 
-  // Reset on close
+  // Reset main form on close
   useEffect(() => {
     if (!isOpen) {
       setStep(1);
@@ -46,6 +46,18 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
     }
   }, [isOpen, reset]);
 
+  useEffect(() => {
+    currentStepConfig.fields.forEach((field) => {
+      if (field.type === "file" && field.required) {
+        register(field.name, {
+          validate: (value) => value instanceof File || "File is required",
+        });
+      }
+    });
+  }, [currentStepConfig.fields, register]);
+
+
+  // Validate required fields for the current step
   const validateStep = async () => {
     const fields = currentStepConfig.fields
       .filter((f) => f.required)
@@ -61,33 +73,61 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
 
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
-  // Final step custom validation (Installer-specific logic)
-  const watchedValues = watch();
+  // Determine if submit button should be enabled
   const isSubmitEnabled =
     isLastStep && config.finalStepValidation
       ? config.finalStepValidation(watchedValues)
       : Object.keys(errors).length === 0 &&
-        currentStepConfig.fields.every(
-          (f) => !f.required || watchedValues[f.name]
-        );
+      currentStepConfig.fields.every(
+        (f) => !f.required || watchedValues[f.name]
+      );
 
-  const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
-    setShowThankYou(true);
+  // Submit handler
+  const onSubmit = async (data) => {
+
+    const submissionData = {
+      position, // <-- add this
+      ...data,
+    };
+
+    console.log("Submitting form data:", submissionData);
+
+    try {
+      const response = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(submissionData),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setShowThankYou(true);
+      } else {
+        console.error("Form submission failed:", result.error);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
-  const handleClose = () => {
+  // Close main form
+  const handleFormClose = () => {
     onClose?.();
     setStep(1);
-    setShowThankYou(false);
     setHasTriedNext(false);
     reset();
   };
 
+  // Close thank-you modal
+  const handleThanksClose = () => {
+    setShowThankYou(false);
+    handleFormClose(); // optionally close main form too
+  };
+
   return (
     <>
+      {/* Main Form Modal */}
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-50" onClose={handleClose}>
+        <Dialog as="div" className="relative z-50" onClose={handleFormClose}>
           <Transition.Child as={Fragment}>
             <div className="fixed inset-0 bg-black/80" />
           </Transition.Child>
@@ -130,7 +170,6 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                           {t(currentStepConfig.title)}
                         </h2>
 
-                        {/* Section Title (e.g. Lifestyle & Mindset) */}
                         {currentStepConfig.sectionTitle && (
                           <p className="text-sm -mt-8 mb-6 sm:text-[18px] px-2.5 py-[5px] mx-auto rounded-[10px] w-max border border-[#FFFFFF1A] uppercase">
                             {t(currentStepConfig.sectionTitle)}
@@ -138,9 +177,8 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                         )}
 
                         <div
-                          className={`grid gap-x-12 gap-y-6 ${
-                            currentStepConfig.grid || "grid-cols-1"
-                          }`}
+                          className={`grid gap-x-12 gap-y-6 ${currentStepConfig.grid || "grid-cols-1"
+                            }`}
                         >
                           {currentStepConfig.fields.map((field) => {
                             const isFullWidth =
@@ -154,26 +192,47 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                                 className={isFullWidth ? "col-span-full" : ""}
                               >
                                 {field.type === "file" && (
+                                  // <FileUpload
+                                  //   label={t(field.label)}
+                                  //   required={field.required}
+                                  //   inputRef={
+                                  //     (fileRefs.current[field.name] =
+                                  //       fileRefs.current[field.name] ||
+                                  //       React.createRef())
+                                  //   }
+                                  //   onChange={(e) => {
+                                  //     const file = e.target.files?.[0];
+                                  //     if (file) {
+                                  //       setValue(field.name, file, {
+                                  //         shouldValidate: true,
+                                  //       });
+                                  //     }
+                                  //     clearErrors(field.name);
+                                  //   }}
+                                  //   hasTriedNext={
+                                  //     hasTriedNext && field.required
+                                  //   }
+                                  //   accept={field.accept}
+                                  // />
                                   <FileUpload
                                     label={t(field.label)}
-                                    required={field.required}
                                     inputRef={
                                       (fileRefs.current[field.name] =
-                                        fileRefs.current[field.name] ||
-                                        React.createRef())
+                                        fileRefs.current[field.name] || React.createRef())
                                     }
                                     onChange={(e) => {
                                       const file = e.target.files?.[0];
                                       if (file) {
                                         setValue(field.name, file, {
-                                          shouldValidate: true,
+                                          shouldValidate: true, // triggers react-hook-form validation
                                         });
+                                      } else {
+                                        setValue(field.name, null, { shouldValidate: true });
                                       }
                                       clearErrors(field.name);
                                     }}
-                                    hasTriedNext={
-                                      hasTriedNext && field.required
-                                    }
+                                    error={errors[field.name]}
+                                    hasTriedNext={hasTriedNext && field.required}
                                     accept={field.accept}
                                   />
                                 )}
@@ -181,7 +240,9 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                                 {field.type === "radio" && (
                                   <RadioCheckbox
                                     label={t(field.label)}
-                                    options={field.options.map((opt) => t(opt))}
+                                    options={field.options.map((opt) =>
+                                      t(opt)
+                                    )}
                                     name={field.name}
                                     register={register}
                                     required={field.required}
@@ -191,27 +252,26 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                                   />
                                 )}
 
-                                {!field.type ||
-                                field.type === "text" ||
-                                field.type === "date" ||
-                                field.type === "email" ||
-                                field.type === "number" ? (
-                                  <Input
-                                    label={t(field.label)}
-                                    name={field.name}
-                                    type={field.type || "text"}
-                                    register={register}
-                                    required={field.required}
-                                    errors={errors}
-                                    clearErrors={clearErrors}
-                                    hasTriedNext={hasTriedNext}
-                                    placeholder={
-                                      field.placeholder
-                                        ? t(field.placeholder)
-                                        : undefined
-                                    }
-                                  />
-                                ) : null}
+                                {(!field.type ||
+                                  ["text", "date", "email", "number"].includes(
+                                    field.type
+                                  )) && (
+                                    <Input
+                                      label={t(field.label)}
+                                      name={field.name}
+                                      type={field.type || "text"}
+                                      register={register}
+                                      required={field.required}
+                                      errors={errors}
+                                      clearErrors={clearErrors}
+                                      hasTriedNext={hasTriedNext}
+                                      placeholder={
+                                        field.placeholder
+                                          ? t(field.placeholder)
+                                          : undefined
+                                      }
+                                    />
+                                  )}
                               </div>
                             );
                           })}
@@ -224,7 +284,7 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                           <button
                             type="button"
                             onClick={prevStep}
-                            className="w-full py-3 border border-white/40 rounded-full hover:bg-white/10 transition font-medium"
+                            className="w-full py-3 border cursor-pointer border-white/40 rounded-full hover:bg-white/10 transition font-medium"
                           >
                             {t("common.back")}
                           </button>
@@ -234,7 +294,7 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                           <button
                             type="button"
                             onClick={nextStep}
-                            className="w-full py-4 bg-[#F8B03B] uppercase text-black font-bold rounded-full text-lg hover:bg-[#f9c65b] transition"
+                            className="w-full py-4 cursor-pointer bg-[#F8B03B] uppercase text-black font-bold rounded-full text-lg hover:bg-[#f9c65b] transition"
                           >
                             {t("common.next")}
                           </button>
@@ -242,11 +302,10 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
                           <button
                             type="submit"
                             disabled={!isSubmitEnabled}
-                            className={`w-full py-4 rounded-full font-bold uppercase text-lg transition ${
-                              isSubmitEnabled
-                                ? "bg-[#F8B03B] text-black hover:bg-[#f9c65b] cursor-pointer"
-                                : "bg-gray-600 text-gray-400 cursor-not-allowed"
-                            }`}
+                            className={`w-full py-4 rounded-full cursor-pointer font-bold uppercase text-lg transition ${isSubmitEnabled
+                              ? "bg-[#F8B03B] text-black hover:bg-[#f9c65b]"
+                              : "bg-gray-600 text-gray-400 cursor-not-allowed"
+                              }`}
                           >
                             {t(config.submitButton || "common.submit")}
                           </button>
@@ -263,10 +322,13 @@ export default function FormBuilder({ config, isOpen = false, onClose }) {
 
       {/* Thank You Modal */}
       <ThanksModal
+        text1={text1}
+        text2={text2}
         isOpen={showThankYou}
-        onClose={handleClose}
+        onClose={handleThanksClose}
         config={config.thanks}
       />
     </>
   );
 }
+

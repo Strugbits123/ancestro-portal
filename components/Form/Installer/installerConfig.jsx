@@ -23,7 +23,7 @@ export const installerConfig = {
           type: "file",
           name: "businessReg",
           label: "forms.installer.fields.businessReg",
-          required: false,
+          required: true,
           fullWidth: true,
         },
         { name: "website", label: "forms.installer.fields.website" },
