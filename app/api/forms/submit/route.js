@@ -48,6 +48,7 @@ export async function POST(req) {
 
     const cleanName = fullName?.trim() || "Applicant";
     const cleanEmail = email?.trim().toLowerCase();
+    console.log("Clean Email:", cleanEmail);
     const cleanPosition = position?.trim() || "Not specified";
 
     const FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL; // Must be verified!
