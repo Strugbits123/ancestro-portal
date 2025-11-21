@@ -1,30 +1,37 @@
-'use client'
-import React, { useState } from 'react';
-import image1 from '../../public/images/sectionItem1.png';
-import image2 from '../../public/images/sectionItem2.png';
-import image3 from '../../public/images/sectionItem3.png';
-import image4 from '../../public/images/sectionItem4.png';
-import image5 from '../../public/images/sectionItem5.png';
-import image6 from '../../public/images/sectionItem6.png';
-import Button from '../common/Button/Button';
-import SalesRepresentativeForm from '../Form/SalesRepresentativeForm';
-import InstallerForm from '../Form/InstallerForm';
-import ProjectManagerForm from '../Form/ProjectManagerForm';
-import CreditAnalystForm from '../Form/CreditAnalystForm';
-import FinancialAnalystForm from '../Form/FinancialAnalystForm';
-import MarketingCoordinatorForm from '../Form/MarketingCoordinatorForm';
-import { useTranslation } from 'react-i18next';
+"use client";
+import React, { useState } from "react";
+import image1 from "../../public/images/sectionItem1.png";
+import image2 from "../../public/images/sectionItem2.png";
+import image3 from "../../public/images/sectionItem3.png";
+import image4 from "../../public/images/sectionItem4.png";
+import image5 from "../../public/images/sectionItem5.png";
+import image6 from "../../public/images/sectionItem6.png";
+import Button from "../common/Button/Button";
+import SalesRepresentativeForm from "../Form/SalesRepresentative/SalesRepresentativeForm";
+import InstallerForm from "../Form/Installer/InstallerForm";
+import ProjectManagerForm from "../Form/ProjectManager/ProjectManagerForm";
+import CreditAnalystForm from "../Form/CreditAnalyst/CreditAnalystForm";
+import FinancialAnalystForm from "../Form/FinancialAnalyst/FinancialAnalystForm";
+import MarketingCoordinatorForm from "../Form/MarketingCoordinator/MarketingCoordinatorForm";
+import { useTranslation } from "react-i18next";
 
 const roleKeys = [
-  'salesRepresentative',
-  'installers',
-  'projectManagers',
-  'creditAnalysts',
-  'financialAnalysts',
-  'marketingCoordinator'
+  "salesRepresentative",
+  "installers",
+  "projectManagers",
+  "creditAnalysts",
+  "financialAnalysts",
+  "marketingCoordinator",
 ];
 
-const images = [image1.src, image2.src, image3.src, image4.src, image5.src, image6.src];
+const images = [
+  image1.src,
+  image2.src,
+  image3.src,
+  image4.src,
+  image5.src,
+  image6.src,
+];
 
 // Map role keys to their respective form components
 const formComponents = {
@@ -64,7 +71,9 @@ function SectionItems() {
             return (
               <div
                 key={key}
-                className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20 xl:gap-28`}
+                className={`flex flex-col ${
+                  isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+                } items-center gap-12 lg:gap-20 xl:gap-28`}
               >
                 {/* Image */}
                 <div className="w-full sm:w-[300px] md:w-[400px] lg:w-[480px] xl:w-[568px] flex-shrink-0">
@@ -87,7 +96,7 @@ function SectionItems() {
                   <div className="space-y-5 lg:space-y-6">
                     {[1, 2, 3, 4, 5, 6].map((n) => {
                       const text = t(`rolesSection.${key}.p${n}`);
-                      if (!text || text.includes('rolesSection.')) return null;
+                      if (!text || text.includes("rolesSection.")) return null;
                       return (
                         <p
                           key={n}
@@ -100,7 +109,7 @@ function SectionItems() {
                   </div>
 
                   <Button
-                    text={t('rolesSection.applyButton')}
+                    text={t("rolesSection.applyButton")}
                     onClick={() => openModal(key)} // Pass the role key
                     classes="mt-[20px]"
                     textClasses="font-haas font-bold !text-[#F8B03B] text-[15px] mt-[10px]"
@@ -113,9 +122,7 @@ function SectionItems() {
       </div>
 
       {/* Conditionally render the correct form based on selectedRole */}
-      {ActiveForm && (
-        <ActiveForm isOpen={modalOpen} onClose={closeModal} />
-      )}
+      {ActiveForm && <ActiveForm isOpen={modalOpen} onClose={closeModal} />}
     </section>
   );
 }
