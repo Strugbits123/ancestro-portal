@@ -9,6 +9,7 @@ export default function ProjectManagerModal({ isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       config={projectManagerConfig} // pass the config here
+      position="Project Manager"
     />
   );
 }
