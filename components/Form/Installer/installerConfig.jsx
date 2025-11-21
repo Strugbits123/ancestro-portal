@@ -10,7 +10,7 @@ export const installerConfig = {
       grid: "grid-cols-1 md:grid-cols-2",
       fields: [
         {
-          name: "companyName",
+          name: "fullName",
           label: "forms.installer.fields.companyName",
           required: true,
         },
