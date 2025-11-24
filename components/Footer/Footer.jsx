@@ -7,16 +7,16 @@ function Footer() {
   const { t } = useTranslation();
 
   return (
-    <div className="py-[20px] bg-black w-full flex flex-col justify-center items-center gap-y-[80px]">
+    <div className="py-[30px] bg-black w-full flex flex-col justify-center items-center gap-y-[80px]">
       <img 
         src={companyLogo.src} 
         alt="Ancestro Logo" 
         className="h-[119px] w-[337px]"
       />
       
-      <p className="font-helvetica font-normal text-center text-base sm:text-lg lg:text-[20px] leading-[22px] lg:leading-[28px] text-white  mx-auto px-4">
+      {/* <p className="font-helvetica font-normal text-center text-base sm:text-lg lg:text-[20px] leading-[22px] lg:leading-[28px] text-white  mx-auto px-4">
         {t('footer.address')} — {t('footer.contact')}
-      </p>
+      </p> */}
     </div>
   );
 }
