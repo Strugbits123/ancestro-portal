@@ -149,7 +149,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                 <Dialog.Panel
                   className="w-full max-w-4xl rounded-2xl overflow-hidden font-lato"
                   style={{
-                    width: "823px",
+                    width: "900px",
                     maxWidth: "95vw",
                     background: "#FFFFFF1A",
                     border: "1px solid rgba(255, 255, 255, 0.10)",
@@ -223,6 +223,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                       clearErrors(field.name);
                                     }}
                                     error={errors[field.name]}
+                                    required={field.required}
                                     hasTriedNext={hasTriedNext && field.required}
                                     accept={field.accept}
                                   />
@@ -275,7 +276,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                           <button
                             type="button"
                             onClick={prevStep}
-                            className="w-full py-3 border cursor-pointer border-white/40 rounded-full hover:bg-white/10 transition font-medium"
+                            className="w-full py-3 border text-sm sm:text-lg cursor-pointer border-white/40 rounded-full hover:bg-white/10 transition font-medium"
                           >
                             {t("common.back")}
                           </button>
@@ -285,7 +286,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                           <button
                             type="button"
                             onClick={nextStep}
-                            className="w-full py-4 cursor-pointer bg-[#F8B03B] uppercase text-black font-bold rounded-full text-lg hover:bg-[#f9c65b] transition"
+                            className="w-full py-4 cursor-pointer bg-[#F8B03B] uppercase text-black font-bold rounded-full text-sm sm:text-lg hover:bg-[#f9c65b] transition"
                           >
                             {t("common.next")}
                           </button>
@@ -293,7 +294,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                           <button
                             type="submit"
                             disabled={!isSubmitEnabled}
-                            className={`w-full py-4 rounded-full cursor-pointer font-bold uppercase text-lg transition ${isSubmitEnabled
+                            className={`w-full py-4 rounded-full cursor-pointer font-bold uppercase text-sm sm:text-lg transition ${isSubmitEnabled
                               ? "bg-[#F8B03B] text-black hover:bg-[#f9c65b]"
                               : "bg-gray-600 text-gray-400 cursor-not-allowed"
                               }`}

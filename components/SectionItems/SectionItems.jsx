@@ -64,7 +64,7 @@ function SectionItems() {
   return (
     <section id="job-application-section" className="w-full bg-black">
       <div className="max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-20 py-20 sm:py-28 lg:py-32">
-        <div className="flex flex-col gap-y-12 lg:gap-y-40">
+        <div className="flex flex-col gap-y-12 xl:gap-y-40">
           {roleKeys.map((key, index) => {
             const isEven = index % 2 === 0;
 
@@ -72,11 +72,11 @@ function SectionItems() {
               <div
                 key={key}
                 className={`flex flex-col ${
-                  isEven ? "lg:flex-row" : "lg:flex-row-reverse"
-                } items-center gap-12 lg:gap-20 xl:gap-28`}
+                  isEven ? "xl:flex-row" : "xl:flex-row-reverse"
+                } items-center gap-12 lg:gap-10 xl:gap-28`}
               >
                 {/* Image */}
-                <div className="w-full sm:w-[300px] md:w-[400px] lg:w-[480px] xl:w-[568px] flex-shrink-0">
+                <div className="w-full sm:w-[500px] md:w-[500px] lg:w-[480px] xl:w-[568px] flex-shrink-0">
                   <div className="relative w-full aspect-[568/534] rounded-2xl overflow-hidden shadow-2xl">
                     <img
                       src={images[index]}
@@ -88,7 +88,7 @@ function SectionItems() {
                 </div>
 
                 {/* Text Content */}
-                <div className="flex-1 text-center lg:text-left max-w-[686px]">
+                <div className="flex-1 text-center xl:text-left max-w-[686px]">
                   <h2 className="font-helvetica font-bold text-3xl sm:text-4xl lg:text-[40px] leading-tight text-white mb-6 lg:mb-8">
                     {t(`rolesSection.${key}.heading`)}
                   </h2>

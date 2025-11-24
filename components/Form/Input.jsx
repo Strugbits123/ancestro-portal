@@ -17,7 +17,7 @@ function Input({
   return (
     <div>
       <label className="block text-[14px] font-bold uppercase tracking-wider mb-2 opacity-90">
-        {t(label)}
+        {t(label)} {required && <span className="text-red-400">*</span>}
       </label>
 
       <input

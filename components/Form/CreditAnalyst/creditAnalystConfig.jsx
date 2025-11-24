@@ -44,7 +44,7 @@ export const creditAnalystConfig = {
           name: "linkedin",
           label: "forms.creditAnalyst.fields.linkedin",
           required: false,
-        }, // assuming not required
+        }, 
       ],
     },
     {
