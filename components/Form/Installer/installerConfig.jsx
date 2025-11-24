@@ -28,6 +28,7 @@ export const installerConfig = {
         { name: "website", label: "forms.installer.fields.website" },
         {
           name: "whatsapp",
+          type: "number",
           label: "forms.installer.fields.whatsapp",
           required: true,
         },
@@ -39,6 +40,7 @@ export const installerConfig = {
         },
         {
           name: "contactPerson",
+          type: "number",
           label: "forms.installer.fields.contactPerson",
           required: true,
         },
@@ -272,6 +274,8 @@ export const installerConfig = {
       fields: [
         {
           name: "selfDiscipline",
+          type:"drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.installer.fields.selfDiscipline",
           required: true,
         },
@@ -339,6 +343,8 @@ export const installerConfig = {
         },
         {
           name: "leadershipComfort",
+          type:"drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.installer.fields.leadershipComfort",
           required: true,
         },

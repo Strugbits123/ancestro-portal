@@ -8,6 +8,7 @@ import ThanksModal from "./ThanksModal";
 import Input from "./Input";
 import FileUpload from "./FileUpload";
 import RadioCheckbox from "./RadioCheckbox";
+import Dropdown from "./DropDown";
 
 export default function FormBuilder({ config, isOpen = false, onClose, position, text1, text2 }) {
   const [step, setStep] = useState(1);
@@ -23,6 +24,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
     watch,
     control,
     clearErrors,
+    getValues,
     setValue,
     reset,
   } = useForm({ mode: "onChange" });
@@ -243,6 +245,25 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                     hasTriedNext={hasTriedNext}
                                   />
                                 )}
+
+                                  {field.type === "drop-down" && (
+                                  <Dropdown
+                                    label={t(field.label)}
+                                    options={field.options.map((opt) =>
+                                      t(opt)
+                                    )}
+                                    name={field.name}
+                                    register={register}
+                                    errors={errors}
+                                    required={field.required}
+                                    control={control}
+                                    clearErrors={clearErrors}
+                                    hasTriedNext={hasTriedNext}
+                                    setValue={setValue}
+                                    getValues={getValues}
+                                  />
+                                )}
+
 
                                 {(!field.type ||
                                   ["text", "date", "email", "number"].includes(

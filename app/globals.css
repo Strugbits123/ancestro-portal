@@ -91,6 +91,20 @@ input[type="date"]:focus + .custom-date-overlay,
 input[type="date"]:not(:placeholder-shown) + .custom-date-overlay {
     opacity: 1;
 }
+/* Hide number input arrows */
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 
 @font-face {
   font-family: 'Helvetica Neue Custom';

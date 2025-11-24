@@ -19,6 +19,7 @@ export const salesRepConfig = {
         },
         {
           name: "whatsapp",
+          type: "number",
           label: "forms.salesRepresentative.fields.whatsapp",
           required: true,
         },
@@ -96,12 +97,16 @@ export const salesRepConfig = {
         },
         {
           name: "cameraComfort",
+          type: "drop-down",
           label: "forms.salesRepresentative.fields.cameraComfort",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           required: true,
         },
         {
           name: "crmComfort",
           label: "forms.salesRepresentative.fields.crmComfort",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+          type: "drop-down",
           required: true,
         },
         {
@@ -186,6 +191,8 @@ export const salesRepConfig = {
       fields: [
         {
           name: "discipline",
+          type: "drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.salesRepresentative.fields.discipline",
           required: true,
         },
@@ -214,7 +221,7 @@ export const salesRepConfig = {
           label: "forms.salesRepresentative.fields.selfTalk",
           required: true,
         },
-  
+
       ],
     },
     {
@@ -252,6 +259,8 @@ export const salesRepConfig = {
         },
         {
           name: "publicSpeaking",
+          type: "drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.salesRepresentative.fields.publicSpeaking",
           required: true,
         },

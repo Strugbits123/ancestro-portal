@@ -22,11 +22,23 @@ function Input({
 
       <input
         type={type}
+        style={{
+    MozAppearance: "textfield",
+  }}
         {...restProps}
+        // {...register(name, {
+        //   required: required && t("common.required"),
+        //   onChange: () => clearErrors?.(name),
+        // })}
         {...register(name, {
           required: required && t("common.required"),
+          pattern: type === "email" && {
+            value: /^\S+@\S+\.\S+$/,
+            message: t("common.invalidEmail"),
+          },
           onChange: () => clearErrors?.(name),
         })}
+
         className="w-full bg-transparent border-b-2 border-white/40 focus:border-[#F8B03B] outline-none text-white placeholder-white/50 "
       />
 
