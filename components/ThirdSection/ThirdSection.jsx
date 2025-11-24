@@ -14,7 +14,7 @@ function ThirdSection() {
     <section className="relative  h-auto bg-black w-full overflow-hidden">
       {/* Main Background with Rounded Container */}
      <div className='flex flex-col gap-y-[80px] w-full'>
-       <div className="relative sm:px-[90px]  max-sm:!px-5 ">
+       <div className="relative sm:px-10  max-sm:!px-5 ">
         <div
           className="relative max-sm:h-auto! w-full "
           style={{
