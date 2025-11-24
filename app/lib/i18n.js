@@ -231,7 +231,7 @@ const enTranslations = {
         currentBlock:
           "What is currently holding you back from your highest potential?",
         freedomMoment:
-          "Describe a moment when you felt frustrated by limits or systems in society...",
+          "Describe a moment when you felt frustrated by limits or systems in society and wanted to create more freedom — for yourself or for others.",
         workThatEnergizes: "What kind of work makes you feel most alive?",
         whyMissionDriven:
           "Why do you want to be part of a mission-driven, health-conscious company like Ancestro?",
@@ -256,7 +256,7 @@ const enTranslations = {
         fitnessEncouragement:
           "If the company encouraged fitness and wellbeing goals as part of professional development, how would that feel to you?",
         fitnessChallenge:
-          "If you were selected for this role only after demonstrating a commitment to improve your physical fitness...",
+          "If you were selected for this role only after demonstrating a commitment to improve your physical fitness or overall wellbeing, would you be open to that challenge and to receiving support from our team to achieve it?",
 
         photoOptional:
           "Upload a recent photo that represents who you are (optional)",
@@ -412,9 +412,9 @@ const enTranslations = {
           "Confirm willingness to participate in Ancestro onboarding and training",
       },
       thanks: {
-        text1: "Thank you for applying to become an Ancestro Credit Analyst.",
+        text1: "You are the guardian of financial truth — the one who ensures that growth is built on integrity.",
         text2:
-          "We will review your application and contact you within 48 hours.",
+          "Every decision you make strengthens trust across the grid and protects the future of renewable energy in Latin America.",
       },
     },
     financialAnalyst: {
@@ -564,9 +564,9 @@ const enTranslations = {
 
       thanks: {
         text1:
-          "Thank you for applying to become an Ancestro Financial Analyst.",
+          "You are the architect of prosperity — translating sunlight into wealth and purpose.",
         text2:
-          "We will review your application and contact you within 48 hours.",
+          "Every model you build helps investors, communities, and the planet thrive together.",
       },
     },
     installer: {
@@ -694,7 +694,7 @@ const enTranslations = {
         frustrationMoment1:
           "Describe a moment when you felt frustrated by the limits of the system and wanted to create more freedom for yourself or your community.",
         frustrationMoment2:
-          "Describe a moment when you felt frustrated by the limits of the system and wanted to create more freedom for yourself or your community.",
+          "What kind of work makes you feel most alive?",
         missionAlignment:
           "Why do you want to be part of a mission-driven, health-conscious company like Ancestro?",
 
@@ -873,9 +873,9 @@ const enTranslations = {
       },
 
       thanks: {
-        text1: "Thank you for applying to lead projects at Ancestro Energy.",
+        text1: "You are the conductor of progress — the bridge between vision and execution",
         text2:
-          "We will review your application and contact you within 48 hours.",
+          "Every project you complete expands the Ancestral Grid and empowers communities across Latin America.",
       },
     },
     marketingCoordinator: {
@@ -1018,9 +1018,9 @@ const enTranslations = {
 
       thanks: {
         text1:
-          "Thank you for applying to become an Ancestro Marketing Coordinator.",
+          "You are the voice that connects technology to humanity.",
         text2:
-          "We will review your application and contact you within 48 hours.",
+          "Every post, campaign, and event you coordinate carries the light of Ancestro into homes and hearts.",
       },
     },
   },
@@ -1253,7 +1253,7 @@ const esTranslations = {
         currentBlock:
           "¿Qué te está frenando actualmente de alcanzar tu máximo potencial?",
         freedomMoment:
-          "Describe un momento en que te sentiste frustrado por límites o sistemas de la sociedad...",
+          "Describe un momento en el que te sentiste frustrado por los límites o los sistemas de la sociedad y quisiste crear más libertad — para ti o para los demás.",
         workThatEnergizes: "¿Qué tipo de trabajo te hace sentir más vivo?",
         whyMissionDriven:
           "¿Por qué quieres formar parte de una empresa con propósito, consciente de la salud como Ancestro?",
@@ -1277,7 +1277,7 @@ const esTranslations = {
         fitnessEncouragement:
           "Si la empresa promoviera metas de fitness y bienestar como parte del desarrollo profesional, ¿cómo te sentirías?",
         fitnessChallenge:
-          "Si fueras seleccionado solo después de demostrar compromiso con mejorar tu condición física...",
+          "Si fueras seleccionado para este puesto solo después de demostrar un compromiso para mejorar tu condición física o tu bienestar general, ¿estarías dispuesto a aceptar ese desafío y a recibir el apoyo de nuestro equipo para lograrlo?",
 
         photoOptional:
           "Sube una foto reciente que represente quién eres (opcional)",
@@ -1435,9 +1435,9 @@ const esTranslations = {
           "Confirmar disposición a participar en la capacitación e integración de Ancestro",
       },
       thanks: {
-        text1: "Gracias por postularte como Analista de Crédito en Ancestro.",
+        text1: "Eres el guardián de la verdad financiera: quien asegura que el crecimiento se construya sobre la integridad.",
         text2:
-          "Revisaremos tu aplicación y te contactaremos en las próximas 48 horas.",
+          "Cada decisión que tomas fortalece la confianza en la red y protege el futuro de la energía renovable en América Latina.",
       },
     },
     financialAnalyst: {
@@ -1716,7 +1716,7 @@ const esTranslations = {
         frustrationMoment1:
           "Describe un momento en que te sentiste frustrado por los límites del sistema y quisiste crear más libertad para ti o tu comunidad.",
         frustrationMoment2:
-          "Describe otro momento en que te sentiste frustrado por los límites del sistema y quisiste crear más libertad para ti o tu comunidad.",
+          "¿Qué tipo de trabajo te hace sentir más vivo?",
         missionAlignment:
           "¿Por qué quieres formar parte de una empresa con propósito y consciente de la salud como Ancestro?",
 
@@ -1894,9 +1894,9 @@ const esTranslations = {
 
       thanks: {
         text1:
-          "Gracias por postularte como Project Manager en Ancestro Energy.",
+          "Eres el conductor del progreso: el puente entre la visión y la ejecución.",
         text2:
-          "Revisaremos tu solicitud y te contactaremos en menos de 48 horas.",
+          "Cada proyecto que completas expande la Red Ancestral y empodera a las comunidades de toda América Latina.",
       },
     },
     marketingCoordinator: {
@@ -2039,9 +2039,9 @@ const esTranslations = {
 
       thanks: {
         text1:
-          "Gracias por postularte como Coordinador(a) de Marketing en Ancestro Energy.",
+          "Eres la voz que conecta la tecnología con la humanidad.",
         text2:
-          "Revisaremos tu solicitud y te contactaremos en menos de 48 horas.",
+          "Cada publicación, campaña y evento que coordines lleva la luz de Ancestro a los hogares y los corazones.",
       },
     },
   },

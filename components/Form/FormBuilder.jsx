@@ -149,7 +149,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                 <Dialog.Panel
                   className="w-full max-w-4xl rounded-2xl overflow-hidden font-lato"
                   style={{
-                    width: "823px",
+                    width: "900px",
                     maxWidth: "95vw",
                     background: "#FFFFFF1A",
                     border: "1px solid rgba(255, 255, 255, 0.10)",
@@ -223,6 +223,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                       clearErrors(field.name);
                                     }}
                                     error={errors[field.name]}
+                                    required={field.required}
                                     hasTriedNext={hasTriedNext && field.required}
                                     accept={field.accept}
                                   />

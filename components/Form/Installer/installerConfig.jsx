@@ -23,7 +23,6 @@ export const installerConfig = {
           type: "file",
           name: "businessReg",
           label: "forms.installer.fields.businessReg",
-          required: true,
           fullWidth: true,
         },
         { name: "website", label: "forms.installer.fields.website" },
@@ -313,12 +312,12 @@ export const installerConfig = {
           required: true,
         },
         {
-          name: "frustrationMoment1",
+          name: "frustrationMoment",
           label: "forms.installer.fields.frustrationMoment1",
           required: true,
         },
         {
-          name: "frustrationMoment2",
+          name: "workMotivation",
           label: "forms.installer.fields.frustrationMoment2",
           required: true,
         },
@@ -410,7 +409,7 @@ export const installerConfig = {
           type: "file",
           name: "cvFile",
           label: "forms.installer.fields.cvFile",
-          required: false,
+          required: true,
         },
         {
           type: "file",

@@ -214,11 +214,7 @@ export const salesRepConfig = {
           label: "forms.salesRepresentative.fields.selfTalk",
           required: true,
         },
-        {
-          type: "file",
-          name: "photoOptional",
-          label: "forms.salesRepresentative.fields.photoOptional",
-        },
+  
       ],
     },
     {

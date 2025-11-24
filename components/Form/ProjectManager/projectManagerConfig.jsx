@@ -88,7 +88,7 @@ export const projectManagerConfig = {
           type: "file",
           name: "certificatesFile",
           label: "forms.projectManager.fields.certificatesFile",
-          required: false,
+          required: true,
           fullWidth: true,
         },
       ],

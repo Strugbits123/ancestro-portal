@@ -48,7 +48,7 @@ function FileUpload({ label, required = false, onChange, inputRef, accept, error
 
   return (
     <>
-      <div className="mt-6 border-b-2 border-white/40 pb-5">
+      <div className="border-b-2 border-white/40 pb-5">
         <label className="block text-[14px] font-bold uppercase tracking-wider mb-3 opacity-90">
           {label} {required && <span className="text-red-400">*</span>}
         </label>

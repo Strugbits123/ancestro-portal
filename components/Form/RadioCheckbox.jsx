@@ -17,7 +17,7 @@ function RadioCheckbox({
   return (
     <div className="mt-6">
       <p className="text-[14px] font-bold uppercase tracking-wider mb-4 opacity-90">
-        {label}
+        {label} {required && <span className="text-red-400">*</span>}
       </p>
       <div className="flex gap-8">
         {options.map((option) => (
