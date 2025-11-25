@@ -87,6 +87,8 @@ export const salesRepConfig = {
         },
         {
           name: "commStyle",
+          type: "tags",
+          placeholder:"common.tagPlaceholder",
           label: "forms.salesRepresentative.fields.commStyle",
           required: true,
         },

@@ -136,6 +136,7 @@ const enTranslations = {
     typeHere: "Type here...",
     submit: "Submit Application",
     invalidEmail: "Please enter a valid email address",
+    tagPlaceholder: "Type a word and press Enter....",
   },
   forms: {
     salesRepresentative: {
@@ -1158,6 +1159,7 @@ const esTranslations = {
     typeHere: "Escribe aquí...",
     submit: "Enviar solicitud",
     invalidEmail: "Por favor, introduce una dirección de correo electrónica válida",
+    tagPlaceholder: "Escribe y presiona enter....",
   },
   forms: {
     salesRepresentative: {

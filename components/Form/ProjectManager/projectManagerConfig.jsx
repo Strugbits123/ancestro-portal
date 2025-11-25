@@ -52,7 +52,7 @@ export const projectManagerConfig = {
       fields: [
         {
           name: "pmYears",
-          type:"number",
+          type: "number",
           label: "forms.projectManager.fields.pmYears",
           required: true,
         },
@@ -115,6 +115,8 @@ export const projectManagerConfig = {
         },
         {
           name: "leadershipStyle",
+          type: "tags",
+          placeholder: "common.tagPlaceholder",
           label: "forms.projectManager.fields.leadershipStyle",
           required: true,
         },

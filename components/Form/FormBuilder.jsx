@@ -9,6 +9,7 @@ import Input from "./Input";
 import FileUpload from "./FileUpload";
 import RadioCheckbox from "./RadioCheckbox";
 import Dropdown from "./DropDown";
+import TagInput from "./TagInput";
 
 export default function FormBuilder({ config, isOpen = false, onClose, position, text1, text2 }) {
   const [step, setStep] = useState(1);
@@ -94,16 +95,16 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
 
     console.log("Submitting form data:", submissionData);
 
-     Object.keys(submissionData).forEach((key) => {
-    const value = submissionData[key];
+    Object.keys(submissionData).forEach((key) => {
+      const value = submissionData[key];
 
-    // If it's a File object and it has a 'name', try to replace with stored objectURL
-    if (value instanceof File) {
-      // Assuming you stored the objectURL on the File object itself after upload
-      // e.g., file.objectURL = "https://s3...."
-      submissionData[key] = value.objectURL || value.name; // fallback to file name
-    }
-  });
+      // If it's a File object and it has a 'name', try to replace with stored objectURL
+      if (value instanceof File) {
+        // Assuming you stored the objectURL on the File object itself after upload
+        // e.g., file.objectURL = "https://s3...."
+        submissionData[key] = value.objectURL || value.name; // fallback to file name
+      }
+    });
 
     try {
       const response = await fetch("/api/forms/submit", {
@@ -213,7 +214,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                         fileRefs.current[field.name] || React.createRef())
                                     }
                                     onChange={(e) => {
-                                      
+
                                       const file = e.target.files?.[0];
                                       if (file) {
                                         setValue(field.name, file, {
@@ -246,7 +247,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                   />
                                 )}
 
-                                  {field.type === "drop-down" && (
+                                {field.type === "drop-down" && (
                                   <Dropdown
                                     label={t(field.label)}
                                     options={field.options.map((opt) =>
@@ -256,6 +257,21 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                     register={register}
                                     errors={errors}
                                     required={field.required}
+                                    control={control}
+                                    clearErrors={clearErrors}
+                                    hasTriedNext={hasTriedNext}
+                                    setValue={setValue}
+                                    getValues={getValues}
+                                  />
+                                )}
+                                {field.type === "tags" && (
+                                  <TagInput
+                                    label={t(field.label)}
+                                    name={field.name}
+                                    register={register}
+                                    errors={errors}
+                                    required={field.required}
+                                    placeholder={t(field?.placeholder)}
                                     control={control}
                                     clearErrors={clearErrors}
                                     hasTriedNext={hasTriedNext}
