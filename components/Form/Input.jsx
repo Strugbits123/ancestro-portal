@@ -23,8 +23,8 @@ function Input({
       <input
         type={type}
         style={{
-    MozAppearance: "textfield",
-  }}
+          MozAppearance: "textfield",
+        }}
         {...restProps}
         // {...register(name, {
         //   required: required && t("common.required"),

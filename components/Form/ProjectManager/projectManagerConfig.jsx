@@ -18,6 +18,7 @@ export const projectManagerConfig = {
         },
         {
           name: "location",
+          type: "location",
           label: "forms.projectManager.fields.location",
           required: true,
         },
@@ -208,7 +209,7 @@ export const projectManagerConfig = {
       fields: [
         {
           name: "selfDiscipline",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.projectManager.fields.selfDiscipline",
           required: true,
@@ -277,7 +278,7 @@ export const projectManagerConfig = {
         },
         {
           name: "publicSpeaking",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.projectManager.fields.publicSpeaking",
           required: true,
@@ -289,6 +290,8 @@ export const projectManagerConfig = {
         },
         {
           name: "structureVsAutonomy",
+          type: "drop-down",
+          options: ["structure", "autonomy"],
           label: "forms.projectManager.fields.structureVsAutonomy",
           required: true,
         },
