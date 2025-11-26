@@ -8,7 +8,7 @@ import ThanksModal from "./ThanksModal";
 import Input from "./Input";
 import FileUpload from "./FileUpload";
 import RadioCheckbox from "./RadioCheckbox";
-import Dropdown from "./DropDown";
+import RatingSelector from "./RatingSelector";
 import TagInput from "./TagInput";
 
 export default function FormBuilder({ config, isOpen = false, onClose, position, text1, text2 }) {
@@ -248,7 +248,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                 )}
 
                                 {field.type === "drop-down" && (
-                                  <Dropdown
+                                  <RatingSelector
                                     label={t(field.label)}
                                     options={field.options.map((opt) =>
                                       t(opt)
