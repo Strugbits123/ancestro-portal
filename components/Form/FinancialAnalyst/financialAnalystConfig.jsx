@@ -20,6 +20,7 @@ export const financialAnalystConfig = {
         },
         {
           name: "whatsapp",
+          type: "number",
           label: "forms.financialAnalyst.fields.whatsapp",
           required: true,
         },
@@ -274,6 +275,8 @@ export const financialAnalystConfig = {
         },
         {
           name: "presentationComfort",
+          type: "drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.financialAnalyst.fields.presentationComfort",
           required: true,
         },

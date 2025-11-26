@@ -23,6 +23,7 @@ export const marketingCoordinatorConfig = {
         {
           name: "whatsapp",
           label: "forms.marketingCoordinator.fields.whatsapp",
+          type: "number",
           required: true,
         },
         {
@@ -58,6 +59,7 @@ export const marketingCoordinatorConfig = {
         },
         {
           name: "yearsExperience",
+          type: "number",
           label: "forms.marketingCoordinator.fields.yearsExperience",
           required: true,
         },
@@ -98,11 +100,15 @@ export const marketingCoordinatorConfig = {
         },
         {
           name: "salesCoordination",
+          type: "drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.marketingCoordinator.fields.salesCoordination",
           required: true,
         },
         {
           name: "eventComfort",
+          type: "drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.marketingCoordinator.fields.eventComfort",
           required: true,
         },
@@ -262,6 +268,8 @@ export const marketingCoordinatorConfig = {
         },
         {
           name: "presentationComfort",
+          type: "drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.marketingCoordinator.fields.presentationComfort",
           required: true,
         },

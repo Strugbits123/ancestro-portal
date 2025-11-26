@@ -20,6 +20,7 @@ export const creditAnalystConfig = {
         },
         {
           name: "whatsapp",
+          type: "number",
           label: "forms.creditAnalyst.fields.whatsapp",
           required: true,
         },
@@ -304,6 +305,8 @@ export const creditAnalystConfig = {
         },
         {
           name: "presentationComfort",
+          type: "drop-down",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.creditAnalyst.fields.presentationComfort",
           required: true,
         },
