@@ -16,6 +16,7 @@ export const installerConfig = {
         },
         {
           name: "location",
+          type: "location",
           label: "forms.installer.fields.location",
           required: true,
         },
@@ -81,6 +82,7 @@ export const installerConfig = {
         },
         {
           name: "certifiedSupervisor",
+          type: "drop-down",
           label: "forms.installer.fields.certifiedSupervisor",
           options: ["common.yes", "common.no"],
           required: true,
@@ -143,6 +145,7 @@ export const installerConfig = {
         {
           name: "safetyTraining",
           label: "forms.installer.fields.safetyTraining",
+          type: "drop-down",
           options: ["common.yes", "common.no"],
           required: true,
         },
@@ -183,6 +186,8 @@ export const installerConfig = {
         },
         {
           name: "maintenanceServices",
+          type: "drop-down",
+          options: ["common.yes", "common.no"],
           label: "forms.installer.fields.maintenanceServices",
           required: true,
         },
@@ -228,6 +233,8 @@ export const installerConfig = {
         },
         {
           name: "brandRepresentation",
+          type: "drop-down",
+          options: ["common.yes", "common.no"],
           label: "forms.installer.fields.brandRepresentation",
           required: true,
         },
@@ -258,6 +265,8 @@ export const installerConfig = {
         },
         {
           name: "partnershipType",
+          type: "drop-down",
+          options: ["common.subContractor", "common.exclusiveInstaller", "common.regionalEpcPartner"],
           label: "forms.installer.fields.partnershipType",
           required: true,
         },
@@ -274,7 +283,7 @@ export const installerConfig = {
       fields: [
         {
           name: "selfDiscipline",
-          type:"drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.installer.fields.selfDiscipline",
           required: true,
@@ -343,7 +352,7 @@ export const installerConfig = {
         },
         {
           name: "leadershipComfort",
-          type:"drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.installer.fields.leadershipComfort",
           required: true,
@@ -355,6 +364,8 @@ export const installerConfig = {
         },
         {
           name: "communicationPref",
+          type: "drop-down",
+          options: ["common.voiceNotes", "common.calls", "common.writtenReports"],
           label: "forms.installer.fields.communicationPref",
           required: true,
         },
@@ -428,7 +439,6 @@ export const installerConfig = {
           name: "availabilityConfirmation",
           label: "forms.installer.fields.availabilityConfirmation",
           required: true,
-          placeholder: "forms.installer.fields.availabilityConfirmation",
         },
       ],
     },

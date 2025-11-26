@@ -17,6 +17,7 @@ export const marketingCoordinatorConfig = {
         },
         {
           name: "location",
+          type: "location",
           label: "forms.marketingCoordinator.fields.location",
           required: true,
         },
@@ -100,14 +101,14 @@ export const marketingCoordinatorConfig = {
         },
         {
           name: "salesCoordination",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.marketingCoordinator.fields.salesCoordination",
           required: true,
         },
         {
           name: "eventComfort",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.marketingCoordinator.fields.eventComfort",
           required: true,
@@ -201,11 +202,15 @@ export const marketingCoordinatorConfig = {
       fields: [
         {
           name: "selfDiscipline",
+          type: "rating",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.marketingCoordinator.fields.selfDiscipline",
           required: true,
         },
         {
           name: "dailyHabits",
+          type: "drop-down",  
+          options: ["common.focused","common.grounded"],
           label: "forms.marketingCoordinator.fields.dailyHabits",
           required: true,
         },
@@ -268,7 +273,7 @@ export const marketingCoordinatorConfig = {
         },
         {
           name: "presentationComfort",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.marketingCoordinator.fields.presentationComfort",
           required: true,
@@ -361,14 +366,6 @@ export const marketingCoordinatorConfig = {
       ],
     },
   ],
-
-  finalStepValidation: (values) => {
-    return (
-      !!values.cvFile &&
-      values.fullTimeAvailability === "YES" &&
-      values.trainingCommitment === "YES"
-    );
-  },
 
   thanks: {
     text1: "forms.marketingCoordinator.thanks.text1",
