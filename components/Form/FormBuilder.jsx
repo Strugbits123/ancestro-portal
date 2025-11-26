@@ -10,6 +10,8 @@ import FileUpload from "./FileUpload";
 import RadioCheckbox from "./RadioCheckbox";
 import RatingSelector from "./RatingSelector";
 import TagInput from "./TagInput";
+import Dropdown from "./Dropdown";
+import LocationSelect from "./Location";
 
 export default function FormBuilder({ config, isOpen = false, onClose, position, text1, text2 }) {
   const [step, setStep] = useState(1);
@@ -247,7 +249,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                   />
                                 )}
 
-                                {field.type === "drop-down" && (
+                                {field.type === "rating" && (
                                   <RatingSelector
                                     label={t(field.label)}
                                     options={field.options.map((opt) =>
@@ -264,6 +266,41 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                     getValues={getValues}
                                   />
                                 )}
+
+                                {field.type === "drop-down" && (
+                                  <Dropdown
+                                    label={t(field.label)}
+                                    options={field.options.map((opt) =>
+                                      t(opt)
+                                    )}
+                                    name={field.name}
+                                    register={register}
+                                    errors={errors}
+                                    required={field.required}
+                                    control={control}
+                                    clearErrors={clearErrors}
+                                    hasTriedNext={hasTriedNext}
+                                    setValue={setValue}
+                                    getValues={getValues}
+                                  />
+                                )}
+
+                                {field.type === "location" && (
+                                  <LocationSelect
+                                    label={t(field.label)}
+                                    options={["Cairo", "Alexandria", "Giza", "Aswan", "Dubai", "Riyadh"]}
+                                    name={field.name}
+                                    register={register}
+                                    errors={errors}
+                                    required={field.required}
+                                    control={control}
+                                    clearErrors={clearErrors}
+                                    hasTriedNext={hasTriedNext}
+                                    setValue={setValue}
+                                    getValues={getValues}
+                                  />
+                                )}
+
                                 {field.type === "tags" && (
                                   <TagInput
                                     label={t(field.label)}

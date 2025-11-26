@@ -15,6 +15,7 @@ export const financialAnalystConfig = {
         },
         {
           name: "location",
+          type: "location",
           label: "forms.financialAnalyst.fields.location",
           required: true,
         },
@@ -70,6 +71,8 @@ export const financialAnalystConfig = {
         },
         {
           name: "renewableExperience",
+          type: "drop-down",  
+          options: ["common.yes", "common.no"],
           label: "forms.financialAnalyst.fields.renewableExperience",
           required: true,
         },
@@ -131,6 +134,8 @@ export const financialAnalystConfig = {
       fields: [
         {
           name: "investorReports",
+          type: "drop-down",
+          options: ["common.yes", "common.no"],
           label: "forms.financialAnalyst.fields.investorReports",
           required: true,
         },
@@ -208,6 +213,8 @@ export const financialAnalystConfig = {
       fields: [
         {
           name: "selfDiscipline",
+          type: "rating",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.financialAnalyst.fields.selfDiscipline",
           required: true,
         },
@@ -275,7 +282,7 @@ export const financialAnalystConfig = {
         },
         {
           name: "presentationComfort",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.financialAnalyst.fields.presentationComfort",
           required: true,

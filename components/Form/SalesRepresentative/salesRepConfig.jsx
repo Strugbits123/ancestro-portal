@@ -14,6 +14,7 @@ export const salesRepConfig = {
         },
         {
           name: "location",
+          type: "location",
           label: "forms.salesRepresentative.fields.location",
           required: true,
         },
@@ -62,6 +63,8 @@ export const salesRepConfig = {
         },
         {
           name: "renewableExperience",
+          type: "drop-down",
+          options: ["common.yes", "common.no"],
           label: "forms.salesRepresentative.fields.renewableExperience",
           required: true,
         },
@@ -88,7 +91,7 @@ export const salesRepConfig = {
         {
           name: "commStyle",
           type: "tags",
-          placeholder:"common.tagPlaceholder",
+          placeholder: "common.tagPlaceholder",
           label: "forms.salesRepresentative.fields.commStyle",
           required: true,
         },
@@ -99,7 +102,7 @@ export const salesRepConfig = {
         },
         {
           name: "cameraComfort",
-          type: "drop-down",
+          type: "rating",
           label: "forms.salesRepresentative.fields.cameraComfort",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           required: true,
@@ -108,7 +111,7 @@ export const salesRepConfig = {
           name: "crmComfort",
           label: "forms.salesRepresentative.fields.crmComfort",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-          type: "drop-down",
+          type: "rating",
           required: true,
         },
         {
@@ -123,11 +126,15 @@ export const salesRepConfig = {
       fields: [
         {
           name: "remoteWork",
+          type: "drop-down",
+          options: ["common.yes", "common.no"],
           label: "forms.salesRepresentative.fields.remoteWork",
           required: true,
         },
         {
           name: "inPersonDays",
+          type: "drop-down",
+          options: ["common.yes", "common.no"],
           label: "forms.salesRepresentative.fields.inPersonDays",
           required: true,
         },
@@ -193,7 +200,7 @@ export const salesRepConfig = {
       fields: [
         {
           name: "discipline",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.salesRepresentative.fields.discipline",
           required: true,
@@ -261,7 +268,7 @@ export const salesRepConfig = {
         },
         {
           name: "publicSpeaking",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.salesRepresentative.fields.publicSpeaking",
           required: true,
@@ -273,6 +280,8 @@ export const salesRepConfig = {
         },
         {
           name: "structurePreference",
+          type: "drop-down",
+          options: ["common.structuredGuidance", "common.selfDirect"],
           label: "forms.salesRepresentative.fields.structurePreference",
           required: true,
         },

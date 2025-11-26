@@ -15,6 +15,7 @@ export const creditAnalystConfig = {
         },
         {
           name: "location",
+          type: "location",
           label: "forms.creditAnalyst.fields.location",
           required: true,
         },
@@ -65,6 +66,7 @@ export const creditAnalystConfig = {
         },
         {
           name: "creditYears",
+          type: "number",
           label: "forms.creditAnalyst.fields.creditYears",
           required: true,
         },
@@ -75,6 +77,8 @@ export const creditAnalystConfig = {
         },
         {
           name: "greenLendingExperience",
+          type: "drop-down",
+          options: ["common.yes", "common.no"],
           label: "forms.creditAnalyst.fields.greenLendingExperience",
           required: true,
         },
@@ -238,6 +242,8 @@ export const creditAnalystConfig = {
       fields: [
         {
           name: "selfDiscipline",
+          type: "rating",
+          options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.creditAnalyst.fields.selfDiscipline",
           required: true,
         },
@@ -305,7 +311,7 @@ export const creditAnalystConfig = {
         },
         {
           name: "presentationComfort",
-          type: "drop-down",
+          type: "rating",
           options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
           label: "forms.creditAnalyst.fields.presentationComfort",
           required: true,
@@ -317,6 +323,8 @@ export const creditAnalystConfig = {
         },
         {
           name: "structureVsAutonomy",
+          type: "drop-down",  
+          options: ["structure", "autonomy"],
           label: "forms.creditAnalyst.fields.structureVsAutonomy",
           required: true,
         },
