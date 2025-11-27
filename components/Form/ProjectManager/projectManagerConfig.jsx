@@ -17,21 +17,27 @@ export const projectManagerConfig = {
           required: true,
         },
         {
-          name: "location",
-          type: "location",
-          label: "forms.projectManager.fields.location",
+          name: "email",
+          label: "forms.projectManager.fields.email",
+          type: "email",
+          required: true,
+        },
+        {
+          name: "country",
+          type: "country",
+          label: "forms.salesRepresentative.fields.country",
+          required: true,
+        },
+        {
+          name: "city",
+          type: "city",
+          label: "forms.salesRepresentative.fields.city",
           required: true,
         },
         {
           name: "whatsapp",
           type: "number",
           label: "forms.projectManager.fields.whatsapp",
-          required: true,
-        },
-        {
-          name: "email",
-          label: "forms.projectManager.fields.email",
-          type: "email",
           required: true,
         },
         {
