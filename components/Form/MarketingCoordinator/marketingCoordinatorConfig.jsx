@@ -16,9 +16,21 @@ export const marketingCoordinatorConfig = {
           required: true,
         },
         {
-          name: "location",
-          type: "location",
-          label: "forms.marketingCoordinator.fields.location",
+          name: "email",
+          label: "forms.marketingCoordinator.fields.email",
+          type: "email",
+          required: true,
+        },
+        {
+          name: "country",
+          type: "country",
+          label: "forms.salesRepresentative.fields.country",
+          required: true,
+        },
+        {
+          name: "city",
+          type: "city",
+          label: "forms.salesRepresentative.fields.city",
           required: true,
         },
         {
@@ -27,12 +39,7 @@ export const marketingCoordinatorConfig = {
           type: "number",
           required: true,
         },
-        {
-          name: "email",
-          label: "forms.marketingCoordinator.fields.email",
-          type: "email",
-          required: true,
-        },
+
         {
           name: "dob",
           label: "forms.marketingCoordinator.fields.dob",
@@ -209,8 +216,8 @@ export const marketingCoordinatorConfig = {
         },
         {
           name: "dailyHabits",
-          type: "drop-down",  
-          options: ["common.focused","common.grounded"],
+          type: "drop-down",
+          options: ["common.focused", "common.grounded"],
           label: "forms.marketingCoordinator.fields.dailyHabits",
           required: true,
         },

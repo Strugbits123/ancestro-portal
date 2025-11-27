@@ -14,9 +14,21 @@ export const financialAnalystConfig = {
           required: true,
         },
         {
-          name: "location",
-          type: "location",
-          label: "forms.financialAnalyst.fields.location",
+          name: "email",
+          label: "forms.financialAnalyst.fields.email",
+          type: "email",
+          required: true,
+        },
+        {
+          name: "country",
+          type: "country",
+          label: "forms.salesRepresentative.fields.country",
+          required: true,
+        },
+        {
+          name: "city",
+          type: "city",
+          label: "forms.salesRepresentative.fields.city",
           required: true,
         },
         {
@@ -25,12 +37,7 @@ export const financialAnalystConfig = {
           label: "forms.financialAnalyst.fields.whatsapp",
           required: true,
         },
-        {
-          name: "email",
-          label: "forms.financialAnalyst.fields.email",
-          type: "email",
-          required: true,
-        },
+
         {
           name: "dob",
           label: "forms.financialAnalyst.fields.dob",
@@ -71,7 +78,7 @@ export const financialAnalystConfig = {
         },
         {
           name: "renewableExperience",
-          type: "drop-down",  
+          type: "drop-down",
           options: ["common.yes", "common.no"],
           label: "forms.financialAnalyst.fields.renewableExperience",
           required: true,

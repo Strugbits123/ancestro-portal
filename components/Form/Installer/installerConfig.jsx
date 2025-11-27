@@ -15,9 +15,9 @@ export const installerConfig = {
           required: true,
         },
         {
-          name: "location",
-          type: "location",
-          label: "forms.installer.fields.location",
+          name: "email",
+          label: "forms.installer.fields.email",
+          type: "email",
           required: true,
         },
         {
@@ -34,9 +34,15 @@ export const installerConfig = {
           required: true,
         },
         {
-          name: "email",
-          label: "forms.installer.fields.email",
-          type: "email",
+          name: "country",
+          type: "country",
+          label: "forms.salesRepresentative.fields.country",
+          required: true,
+        },
+        {
+          name: "city",
+          type: "city",
+          label: "forms.salesRepresentative.fields.city",
           required: true,
         },
         {
@@ -50,7 +56,6 @@ export const installerConfig = {
           label: "forms.installer.fields.yearsInOperation",
           type: "number",
           required: true,
-          fullWidth: true,
         },
       ],
     },

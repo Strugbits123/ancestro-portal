@@ -13,22 +13,29 @@ export const creditAnalystConfig = {
           label: "forms.creditAnalyst.fields.fullName",
           required: true,
         },
+
         {
-          name: "location",
-          type: "location",
-          label: "forms.creditAnalyst.fields.location",
+          name: "email",
+          label: "forms.creditAnalyst.fields.email",
+          type: "email",
+          required: true,
+        },
+        {
+          name: "country",
+          type: "country",
+          label: "forms.salesRepresentative.fields.country",
+          required: true,
+        },
+        {
+          name: "city",
+          type: "city",
+          label: "forms.salesRepresentative.fields.city",
           required: true,
         },
         {
           name: "whatsapp",
           type: "number",
           label: "forms.creditAnalyst.fields.whatsapp",
-          required: true,
-        },
-        {
-          name: "email",
-          label: "forms.creditAnalyst.fields.email",
-          type: "email",
           required: true,
         },
         {
@@ -46,7 +53,7 @@ export const creditAnalystConfig = {
           name: "linkedin",
           label: "forms.creditAnalyst.fields.linkedin",
           required: false,
-        }, 
+        },
       ],
     },
     {
@@ -323,7 +330,7 @@ export const creditAnalystConfig = {
         },
         {
           name: "structureVsAutonomy",
-          type: "drop-down",  
+          type: "drop-down",
           options: ["structure", "autonomy"],
           label: "forms.creditAnalyst.fields.structureVsAutonomy",
           required: true,

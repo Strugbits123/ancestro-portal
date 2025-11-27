@@ -9,19 +9,9 @@ export const salesRepConfig = {
       fields: [
         {
           name: "fullName",
+          qEn:"",
+          qEs:"",
           label: "forms.salesRepresentative.fields.fullName",
-          required: true,
-        },
-        {
-          name: "location",
-          type: "location",
-          label: "forms.salesRepresentative.fields.location",
-          required: true,
-        },
-        {
-          name: "whatsapp",
-          type: "number",
-          label: "forms.salesRepresentative.fields.whatsapp",
           required: true,
         },
         {
@@ -30,6 +20,25 @@ export const salesRepConfig = {
           required: true,
           type: "email",
         },
+        {
+          name: "country",
+          type: "country",
+          label: "forms.salesRepresentative.fields.country",
+          required: true,
+        },
+        {
+          name: "city",
+          type: "city",
+          label: "forms.salesRepresentative.fields.city",
+          required: true,
+        },
+        {
+          name: "whatsapp",
+          type: "number",
+          label: "forms.salesRepresentative.fields.whatsapp",
+          required: true,
+        },
+
         {
           name: "dob",
           label: "forms.salesRepresentative.fields.dob",
