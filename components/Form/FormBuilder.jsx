@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import i18n from "@/app/lib/i18n";
 
 import ThanksModal from "./ThanksModal";
 import Input from "./Input";
@@ -38,7 +39,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
   const isLastStep = step === config.steps.length;
   const watchedValues = watch();
 
-  // Reset main form on close
+
   useEffect(() => {
     if (!isOpen) {
       setStep(1);
@@ -62,7 +63,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
   }, [currentStepConfig.fields, register]);
 
 
-  // Validate required fields for the current step
+
   const validateStep = async () => {
     const fields = currentStepConfig.fields
       .filter((f) => f.required)
@@ -87,45 +88,99 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
         (f) => !f.required || watchedValues[f.name]
       );
 
-  // Submit handler
-  const onSubmit = async (data) => {
 
-    const submissionData = {
-      position, // <-- add this
-      ...data,
-    };
+  const normalizeKey = (str) => {
+    return str
+      .replace(/&/g, "and")
+      .replace(/[^a-zA-Z0-9 ]/g, "")
+      .split(" ")
+      .map((word, idx) =>
+        idx === 0 ? word.charAt(0).toLowerCase() + word.slice(1) : word.charAt(0).toUpperCase() + word.slice(1)
+      )
+      .join("");
+  };
 
-    console.log("Submitting form data:", submissionData);
+  const formatSubmissionByTitle = (config, data, t) => {
+    const formatted = {};
+    const fileFields = {}; 
 
-    Object.keys(submissionData).forEach((key) => {
-      const value = submissionData[key];
+    config.steps.forEach((step) => {
+      const stepTitleEn = t(step.title, { lng: "en" });
+      const stepTitleEs = t(step.title, { lng: "es" });
 
-      // If it's a File object and it has a 'name', try to replace with stored objectURL
-      if (value instanceof File) {
-        // Assuming you stored the objectURL on the File object itself after upload
-        // e.g., file.objectURL = "https://s3...."
-        submissionData[key] = value.objectURL || value.name; // fallback to file name
+      const fields = {};
+
+      step.fields.forEach((field) => {
+        const qEn = t(field.label, { lng: "en" });
+        const qEs = t(field.label, { lng: "es" });
+        const value = data[field.name] ?? "";
+
+        if (field.type === "file" || field.type === "video") {
+          fileFields[field.name] = {
+            qEn,
+            qEs,
+            name: value instanceof File ? value.name : value,
+            url: value?.objectURL || ""
+          };
+        } else {
+          fields[field.name] = { qEn, qEs, ans: value };
+        }
+      });
+
+      const key = normalizeKey(stepTitleEn);
+      if (Object.keys(fields).length > 0) {
+        formatted[key] = {
+          titleEn: stepTitleEn,
+          titleEs: stepTitleEs,
+          fields,
+        };
       }
     });
 
-    try {
-      const response = await fetch("/api/forms/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(submissionData),
-      });
-      const result = await response.json();
-      if (result.success) {
-        setShowThankYou(true);
-      } else {
-        console.error("Form submission failed:", result.error);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
+    
+    if (Object.keys(fileFields).length > 0) {
+      formatted["File"] = {
+        titleEn: "Files",
+        titleEs: "Archivos",
+        fields: fileFields,
+      };
     }
+
+    return formatted;
   };
 
-  // Close main form
+
+
+
+
+  const onSubmit = async (data) => {
+    const formattedSteps = formatSubmissionByTitle(config, data, t);
+
+    // Fix file handling
+    Object.values(formattedSteps).forEach((step) => {
+      Object.values(step.fields).forEach((field) => {
+        if (field.ans instanceof File) field.ans = field.ans.name;
+      });
+    });
+
+    const submissionData = {
+      position,
+      status: "Pending",
+      ...formattedSteps,
+    };
+
+    const res = await fetch("/api/forms/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(submissionData),
+    });
+
+    const json = await res.json();
+    if (json.success) setShowThankYou(true);
+  };
+
+
+
   const handleFormClose = () => {
     onClose?.();
     setStep(1);
@@ -133,15 +188,15 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
     reset();
   };
 
-  // Close thank-you modal
+
   const handleThanksClose = () => {
     setShowThankYou(false);
-    handleFormClose(); // optionally close main form too
+    handleFormClose();
   };
 
   return (
     <>
-      {/* Main Form Modal */}
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={handleFormClose}>
           <Transition.Child as={Fragment}>
@@ -220,7 +275,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                       const file = e.target.files?.[0];
                                       if (file) {
                                         setValue(field.name, file, {
-                                          shouldValidate: true, // triggers react-hook-form validation
+                                          shouldValidate: true,
                                         });
                                       } else {
                                         setValue(field.name, null, { shouldValidate: true });
@@ -285,12 +340,31 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
                                   />
                                 )}
 
-                                {field.type === "location" && (
+                                {field.type === "country" && (
                                   <LocationSelect
+                                    type="country"
                                     label={t(field.label)}
-                                    options={["Cairo", "Alexandria", "Giza", "Aswan", "Dubai", "Riyadh"]}
                                     name={field.name}
                                     register={register}
+                                    watch={watch}
+                                    errors={errors}
+                                    required={field.required}
+                                    control={control}
+                                    clearErrors={clearErrors}
+                                    hasTriedNext={hasTriedNext}
+                                    setValue={setValue}
+                                    getValues={getValues}
+                                  />
+                                )}
+
+                                {field.type === "city" && (
+                                  <LocationSelect
+                                    type="city"
+                                    label={t(field.label)}
+                                    countryFieldName={"country"}
+                                    name={field.name}
+                                    register={register}
+                                    watch={watch}
                                     errors={errors}
                                     required={field.required}
                                     control={control}
@@ -386,7 +460,7 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
         </Dialog>
       </Transition>
 
-      {/* Thank You Modal */}
+
       <ThanksModal
         text1={t(config.thanks.text1)}
         text2={t(config.thanks.text2)}
@@ -397,4 +471,5 @@ export default function FormBuilder({ config, isOpen = false, onClose, position,
     </>
   );
 }
+
 

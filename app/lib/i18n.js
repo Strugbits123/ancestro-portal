@@ -138,17 +138,22 @@ const enTranslations = {
     invalidEmail: "Please enter a valid email address",
     tagPlaceholder: "Type a word and press Enter....",
     structuredGuidance: "Structured guidance",
-    selfDirect:" Self direct",
-    subContractor:" Sub-contractor",
-    exclusiveInstaller:" Exclusive installer",
-    regionalEpcPartner:" Regional EPC partner",
+    selfDirect: " Self direct",
+    subContractor: " Sub-contractor",
+    exclusiveInstaller: " Exclusive installer",
+    regionalEpcPartner: " Regional EPC partner",
     voiceNotes: "Voice notes",
     calls: "Calls",
     writtenReports: "Written reports",
-    structure:" Structure",
-    autonomy:" Autonomy",
+    structure: " Structure",
+    autonomy: " Autonomy",
     focused: 'Focused',
-    grounded:" Grounded",
+    grounded: " Grounded",
+    searchCountry:"Search country...",
+    searchCity:"Search city...",
+    typeToSearch:"Type to search...",
+    noResultsFound:"No results found",
+    selectCountry:"Select country First",
   },
   forms: {
     salesRepresentative: {
@@ -179,7 +184,8 @@ const enTranslations = {
 
       fields: {
         fullName: "Full Name",
-        location: "Country and City",
+        country: "Country",
+        city: "City",
         whatsapp: "WhatsApp Number",
         email: "Email Address",
         dob: "Date of Birth",
@@ -316,7 +322,8 @@ const enTranslations = {
       },
       fields: {
         fullName: "Full Name",
-        location: "Country / City",
+        country: "Country",
+        city: "City",
         whatsapp: "WhatsApp Number",
         email: "Email Address",
         dob: "Date of Birth",
@@ -462,7 +469,8 @@ const enTranslations = {
 
       fields: {
         fullName: "Full Name",
-        location: "Country / City",
+        country: "Country",
+        city: "City",
         whatsapp: "WhatsApp Number",
         email: "Email Address",
         dob: "Date of Birth",
@@ -591,7 +599,7 @@ const enTranslations = {
       submitButton: "Submit Application",
 
       steps: {
-        step1: "Company & Contact Information",
+        step1: "Personal Information",
         step2: "Experience & Capability",
         step3: "Certifications & References",
         step4: "Workflow & Operations",
@@ -613,7 +621,8 @@ const enTranslations = {
 
       fields: {
         companyName: "Full Name or Company Name",
-        location: "Country / City / Region of Operation",
+        country: "Country",
+        city: "City",
         businessReg:
           "Business Registration (upload legal certificate if applicable)",
         website: "Company Website or Social Media (if available)",
@@ -780,7 +789,8 @@ const enTranslations = {
 
       fields: {
         fullName: "Full Name",
-        location: "Country / City",
+        country: "Country",
+        city: "City",
         whatsapp: "WhatsApp Number",
         email: "Email Address",
         dob: "Date of Birth",
@@ -921,7 +931,8 @@ const enTranslations = {
 
       fields: {
         fullName: "Full Name",
-        location: "Country / City",
+        country: "Country",
+        city: "City",
         whatsapp: "WhatsApp Number",
         email: "Email Address",
         dob: "Date of Birth",
@@ -1180,10 +1191,15 @@ const esTranslations = {
     voiceNotes: "Notas de voz",
     calls: "Llamadas",
     writtenReports: "Informes escritos",
-    structure:" Estructura",
-    autonomy:" Autonomía",
+    structure: " Estructura",
+    autonomy: " Autonomía",
     focused: "Enfocado",
     grounded: "conectado a tierra",
+    searchCountry: "Buscar países...",
+    searchCity: "Buscar ciudad...",
+    typeToSearch: "Escribe para buscar...",
+    noResultsFound: "No se encontraron resultados",
+    selectCountry: "seleccione el país primero",
   },
   forms: {
     salesRepresentative: {
@@ -1215,7 +1231,8 @@ const esTranslations = {
 
       fields: {
         fullName: "Nombre Completo",
-        location: "País y Ciudad",
+        country: "País",
+        city: "Ciudad",
         whatsapp: "Número de WhatsApp",
         email: "Correo Electrónico",
         dob: "Fecha de Nacimiento",
@@ -1351,7 +1368,8 @@ const esTranslations = {
       },
       fields: {
         fullName: "Nombre Completo",
-        location: "País / Ciudad",
+        country: "País",
+        city: "Ciudad",
         whatsapp: "Número de WhatsApp",
         email: "Correo Electrónico",
         dob: "Fecha de Nacimiento",
@@ -1498,7 +1516,8 @@ const esTranslations = {
 
       fields: {
         fullName: "Nombre Completo",
-        location: "País / Ciudad",
+        country: "País",
+        city: "Ciudad",
         whatsapp: "Número de WhatsApp",
         email: "Correo Electrónico",
         dob: "Fecha de Nacimiento",
@@ -1650,7 +1669,8 @@ const esTranslations = {
 
       fields: {
         companyName: "Nombre Completo o Razón Social de la Empresa",
-        location: "País / Ciudad / Región de Operación",
+        country: "País",
+        city: "Ciudad",
         businessReg: "Registro Mercantil (subir certificado legal si aplica)",
         website: "Sitio Web o Redes Sociales de la Empresa (si tienes)",
         whatsapp: "Número de WhatsApp",
@@ -1813,7 +1833,8 @@ const esTranslations = {
 
       fields: {
         fullName: "Nombre Completo",
-        location: "País / Ciudad",
+        country: "País",
+        city: "Ciudad",
         whatsapp: "Número de WhatsApp",
         email: "Correo Electrónico",
         dob: "Fecha de Nacimiento",
@@ -1956,7 +1977,8 @@ const esTranslations = {
 
       fields: {
         fullName: "Nombre Completo",
-        location: "País / Ciudad",
+        country: "País",
+        city: "Ciudad",
         whatsapp: "Número de WhatsApp",
         email: "Correo Electrónico",
         dob: "Fecha de Nacimiento",
